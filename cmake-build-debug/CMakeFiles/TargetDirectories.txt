@@ -1,0 +1,5 @@
+/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3test.dir
+/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3main.dir
+/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3.dir
