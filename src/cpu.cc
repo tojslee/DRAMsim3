@@ -86,6 +86,9 @@ void TraceBasedCPU::ClockTick() {
             if (get_next_) {
                 memory_system_.AddTransaction(trans_.addr, trans_.is_write);
             }
+            else{
+                stall_counter_++;
+            }
         }
     }
     clk_++;

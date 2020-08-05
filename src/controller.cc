@@ -224,7 +224,7 @@ bool Controller::AddTransaction(Transaction trans) {
         }
         pending_rd_q_.insert(std::make_pair(trans.addr, trans));
         if (pending_rd_q_.count(trans.addr) == 1) {
-            trans.complete_cycle = clk_ + 5;
+            //trans.complete_cycle = clk_ + 100;
             if (is_unified_queue_) {
                 unified_queue_.push_back(trans);
             } else {

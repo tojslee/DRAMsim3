@@ -50,6 +50,7 @@ CMakeFiles/dramsim3.dir/src/controller.cc.o
  /Users/jisoo/CLionProjects/DRAMsim3/src/thermal.h
  /Users/jisoo/CLionProjects/DRAMsim3/src/thermal_config.h
  /Users/jisoo/CLionProjects/DRAMsim3/src/timing.h
+ /Users/jisoo/CLionProjects/DRAMsim3/src/unit.h
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o
  ../ext/headers/INIReader.h
  ../ext/headers/json.hpp
@@ -126,3 +127,7 @@ CMakeFiles/dramsim3.dir/src/timing.cc.o
  /Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
  /Users/jisoo/CLionProjects/DRAMsim3/src/timing.cc
  /Users/jisoo/CLionProjects/DRAMsim3/src/timing.h
+CMakeFiles/dramsim3.dir/src/unit.cpp.o
+ /Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+ /Users/jisoo/CLionProjects/DRAMsim3/src/unit.cpp
+ /Users/jisoo/CLionProjects/DRAMsim3/src/unit.h
