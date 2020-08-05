@@ -28,6 +28,8 @@ class BaseDRAMSystem {
     void PrintStats();
     void ResetStats();
 
+
+
     virtual bool WillAcceptTransaction(uint64_t hex_addr,
                                        bool is_write) const = 0;
     virtual bool AddTransaction(uint64_t hex_addr, bool is_write) = 0;

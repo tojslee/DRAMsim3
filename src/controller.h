@@ -10,6 +10,7 @@
 #include "common.h"
 #include "refresh.h"
 #include "simple_stats.h"
+#include "unit.h"
 
 #ifdef THERMAL
 #include "thermal.h"
@@ -28,16 +29,19 @@ class Controller {
     Controller(int channel, const Config &config, const Timing &timing);
 #endif  // THERMAL
     void ClockTick();
-    bool WillAcceptTransaction(uint64_t hex_addr, bool is_write) const;
+    bool WillAcceptTransaction(uint64_t hex_addr, bool is_write);
     bool AddTransaction(Transaction trans);
     int QueueUsage() const;
     // Stats output
     void PrintEpochStats();
     void PrintFinalStats();
     void ResetStats() { simple_stats_.Reset(); }
+    void print_stall(){std::cout<<stall_counter_<<std::endl;}
+    int freeUnit() const;
     std::pair<uint64_t, int> ReturnDoneTrans(uint64_t clock);
 
     int channel_id_;
+    uint64_t stall_counter_;
 
    private:
     uint64_t clk_;
@@ -46,6 +50,7 @@ class Controller {
     ChannelState channel_state_;
     CommandQueue cmd_queue_;
     Refresh refresh_;
+    std::vector<unit> units_;
 
 #ifdef THERMAL
     ThermalCalculator &thermal_calc_;

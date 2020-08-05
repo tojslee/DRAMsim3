@@ -13,6 +13,7 @@ Controller::Controller(int channel, const Config &config, const Timing &timing)
 #endif  // THERMAL
     : channel_id_(channel),
       clk_(0),
+      stall_counter_(0),
       config_(config),
       simple_stats_(config_, channel_id_),
       channel_state_(config, timing),
@@ -34,12 +35,26 @@ Controller::Controller(int channel, const Config &config, const Timing &timing)
         write_buffer_.reserve(config_.trans_queue_size);
     }
 
+    // unit initialization
+    unit u = unit();
+    units_.push_back(u);
+    units_.push_back(u);
+
 #ifdef CMD_TRACE
     std::string trace_file_name = config_.output_prefix + "ch_" +
                                   std::to_string(channel_id_) + "cmd.trace";
     std::cout << "Command Trace write to " << trace_file_name << std::endl;
     cmd_trace_.open(trace_file_name, std::ofstream::out);
 #endif  // CMD_TRACE
+}
+
+int Controller::freeUnit() const{ // return -1 if all of the Unit is occupied else return index
+    for(int i=0;i<2;i++){
+        if(!units_[i].isOccupied()){
+            return i;
+        }
+    }
+    return -1;
 }
 
 std::pair<uint64_t, int> Controller::ReturnDoneTrans(uint64_t clk) {
@@ -52,11 +67,31 @@ std::pair<uint64_t, int> Controller::ReturnDoneTrans(uint64_t clk) {
                 simple_stats_.Increment("num_reads_done");
                 simple_stats_.AddValue("read_latency", clk_ - it->added_cycle);
             }
+            for(int i=0;i<2;i++){
+                if(units_[i].trans.addr == it->addr){
+                    units_[i].occupied = false;
+                }
+            }
             auto pair = std::make_pair(it->addr, it->is_write);
             it = return_queue_.erase(it);
             return pair;
         } else {
             ++it;
+        }
+    }
+
+    for(int i=0;i<2;i++){
+        auto iter = units_[i].trans;
+        if(clk >= iter.complete_cycle){
+            //if(iter.is_write){
+            //    simple_stats_.Increment("num_writes_done");
+            //}else {
+            //    simple_stats_.Increment("num_reads_done");
+            //    simple_stats_.AddValue("read_latency", clk_ - iter.added_cycle);
+            //}
+            units_[i].occupied = false;
+            //auto pair = std::make_pair(iter.addr, iter.is_write);
+            //return pair;
         }
     }
     return std::make_pair(-1, -1);
@@ -148,10 +183,12 @@ void Controller::ClockTick() {
     return;
 }
 
-bool Controller::WillAcceptTransaction(uint64_t hex_addr, bool is_write) const {
+bool Controller::WillAcceptTransaction(uint64_t hex_addr, bool is_write) {
     if (is_unified_queue_) {
+        if(freeUnit() == -1 && !is_write){ stall_counter_++; return false; }
         return unified_queue_.size() < unified_queue_.capacity();
     } else if (!is_write) {
+        if(freeUnit() == -1){ stall_counter_++; return false; }
         return read_queue_.size() < read_queue_.capacity();
     } else {
         return write_buffer_.size() < write_buffer_.capacity();
@@ -162,6 +199,7 @@ bool Controller::AddTransaction(Transaction trans) {
     trans.added_cycle = clk_;
     simple_stats_.AddValue("interarrival_latency", clk_ - last_trans_clk_);
     last_trans_clk_ = clk_;
+    const int idx = freeUnit();
 
     if (trans.is_write) {
         if (pending_wr_q_.count(trans.addr) == 0) {  // can not merge writes
@@ -180,16 +218,21 @@ bool Controller::AddTransaction(Transaction trans) {
         if (pending_wr_q_.count(trans.addr) > 0) {
             trans.complete_cycle = clk_ + 1;
             return_queue_.push_back(trans);
+            units_[idx].trans = trans;
+            units_[idx].occupied = true;
             return true;
         }
         pending_rd_q_.insert(std::make_pair(trans.addr, trans));
         if (pending_rd_q_.count(trans.addr) == 1) {
+            trans.complete_cycle = clk_ + 5;
             if (is_unified_queue_) {
                 unified_queue_.push_back(trans);
             } else {
                 read_queue_.push_back(trans);
             }
         }
+        units_[idx].trans = trans;
+        units_[idx].occupied = true;
         return true;
     }
 }

@@ -77,6 +77,9 @@ void BaseDRAMSystem::PrintStats() {
 #ifdef THERMAL
     thermal_calc_.PrintFinalPT(clk_);
 #endif  // THERMAL
+    for(int i=0;i<ctrls_.size();i++){
+        ctrls_[i]->print_stall();
+    }
 }
 
 void BaseDRAMSystem::ResetStats() {

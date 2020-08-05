@@ -55,6 +55,9 @@ void StreamCPU::ClockTick() {
         inserted_b_ = false;
         inserted_c_ = false;
     }
+    else{
+        stall_counter_++;
+    }
     clk_++;
     return;
 }

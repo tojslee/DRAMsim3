@@ -65,6 +65,7 @@ int main(int argc, const char **argv) {
         cpu->ClockTick();
     }
     cpu->PrintStats();
+    cpu->PrintStall();
 
     delete cpu;
 

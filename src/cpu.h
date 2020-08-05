@@ -16,15 +16,17 @@ class CPU {
               config_file, output_dir,
               std::bind(&CPU::ReadCallBack, this, std::placeholders::_1),
               std::bind(&CPU::WriteCallBack, this, std::placeholders::_1)),
-          clk_(0) {}
+          clk_(0), stall_counter_(0) {}
     virtual void ClockTick() = 0;
     void ReadCallBack(uint64_t addr) { return; }
     void WriteCallBack(uint64_t addr) { return; }
     void PrintStats() { memory_system_.PrintStats(); }
+    void PrintStall(){std::cout<<stall_counter_<<std::endl;}
 
    protected:
     MemorySystem memory_system_;
     uint64_t clk_;
+    uint64_t stall_counter_;
 };
 
 class RandomCPU : public CPU {
@@ -50,8 +52,8 @@ class StreamCPU : public CPU {
     bool inserted_a_ = false;
     bool inserted_b_ = false;
     bool inserted_c_ = false;
-    const uint64_t array_size_ = 2 << 20;  // elements in array
-    const int stride_ = 64;                // stride in bytes
+    const uint64_t array_size_ = 4000;  // elements in array
+    const int stride_ = 4;                // stride in bytes
 };
 
 class TraceBasedCPU : public CPU {
