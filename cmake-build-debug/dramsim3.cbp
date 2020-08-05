@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="dramsim3"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3test">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/dramsim3test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/src"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3test"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3test/fast">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/dramsim3test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/src"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3test/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3main">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/dramsim3main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/src"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3main"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3main/fast">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/dramsim3main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/src"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3main/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/libdramsim3.dylib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DFMT_HEADER_ONLY=1"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/fmt/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dramsim3/fast">
+				<Option output="/Users/jisoo/CLionProjects/DRAMsim3/libdramsim3.dylib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DFMT_HEADER_ONLY=1"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/headers"/>
+					<Add directory="/Users/jisoo/CLionProjects/DRAMsim3/ext/fmt/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/x86_64-apple-darwin17.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/../../../../../../include/c++/5.5.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/include"/>
+					<Add directory="/usr/local/Cellar/gcc@5/5.5.0_4/lib/gcc/5/gcc/x86_64-apple-darwin17.7.0/5.5.0/include-fixed"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 dramsim3/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/command_queue.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/command_queue.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/common.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/common.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/controller.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/controller.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/cpu.cc">
+			<Option target="dramsim3main"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/cpu.h">
+			<Option target="dramsim3main"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/dram_system.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/dram_system.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/hmc.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/hmc.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/main.cc">
+			<Option target="dramsim3main"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/memory_system.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/memory_system.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/refresh.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/refresh.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/simple_stats.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/simple_stats.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/timing.cc">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/src/timing.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/tests/test_config.cc">
+			<Option target="dramsim3test"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/tests/test_dramsys.cc">
+			<Option target="dramsim3test"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/tests/test_hmcsys.cc">
+			<Option target="dramsim3test"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/DRAMsim3/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
