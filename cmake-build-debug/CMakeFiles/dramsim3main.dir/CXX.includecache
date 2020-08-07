@@ -324,6 +324,28 @@ vector
 utility
 -
 
+/Users/jisoo/CLionProjects/DRAMsim3/ext/headers/args.hxx
+algorithm
+-
+exception
+-
+functional
+-
+sstream
+-
+string
+-
+tuple
+-
+vector
+-
+unordered_map
+-
+unordered_set
+-
+type_traits
+-
+
 /Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.h
 vector
 -
@@ -439,6 +461,14 @@ vector
 -
 dram_system.h
 /Users/jisoo/CLionProjects/DRAMsim3/src/dram_system.h
+
+/Users/jisoo/CLionProjects/DRAMsim3/src/main.cc
+iostream
+-
+./../ext/headers/args.hxx
+/Users/jisoo/CLionProjects/DRAMsim3/ext/headers/args.hxx
+cpu.h
+/Users/jisoo/CLionProjects/DRAMsim3/src/cpu.h
 
 /Users/jisoo/CLionProjects/DRAMsim3/src/memory_system.h
 functional
