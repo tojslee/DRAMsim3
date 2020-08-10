@@ -80,7 +80,7 @@ std::pair<uint64_t, int> Controller::ReturnDoneTrans(uint64_t clk) {
         }
     }
 
-    for(int i=0;i<2;i++){
+    /*for(int i=0;i<2;i++){
         auto iter = units_[i].trans;
         if(clk >= iter.complete_cycle){
             //if(iter.is_write){
@@ -93,7 +93,7 @@ std::pair<uint64_t, int> Controller::ReturnDoneTrans(uint64_t clk) {
             //auto pair = std::make_pair(iter.addr, iter.is_write);
             //return pair;
         }
-    }
+    }*/
     return std::make_pair(-1, -1);
 }
 

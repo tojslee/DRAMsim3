@@ -49,6 +49,7 @@ CMakeFiles/dramsim3.dir/src/controller.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3.dir/src/controller.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3.dir/src/controller.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3.dir/src/controller.cc.o: ../src/timing.h
+CMakeFiles/dramsim3.dir/src/controller.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../ext/headers/json.hpp
@@ -65,6 +66,7 @@ CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../src/timing.h
+CMakeFiles/dramsim3.dir/src/dram_system.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../ext/headers/json.hpp
@@ -82,6 +84,7 @@ CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/timing.h
+CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../ext/headers/json.hpp
@@ -100,6 +103,7 @@ CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/timing.h
+CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3.dir/src/refresh.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/refresh.cc.o: ../src/bankstate.h
@@ -125,4 +129,8 @@ CMakeFiles/dramsim3.dir/src/timing.cc.o: ../src/common.h
 CMakeFiles/dramsim3.dir/src/timing.cc.o: ../src/configuration.h
 CMakeFiles/dramsim3.dir/src/timing.cc.o: ../src/timing.cc
 CMakeFiles/dramsim3.dir/src/timing.cc.o: ../src/timing.h
+
+CMakeFiles/dramsim3.dir/src/unit.cpp.o: ../src/common.h
+CMakeFiles/dramsim3.dir/src/unit.cpp.o: ../src/unit.cpp
+CMakeFiles/dramsim3.dir/src/unit.cpp.o: ../src/unit.h
 

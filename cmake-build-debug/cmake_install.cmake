@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jisoo/CLionProjects/DRAMsim3
+# Install script for directory: /Users/jisoo/CLionProjects/revDRAMsim3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -6,5 +6,5 @@ CXX_FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sd
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/jisoo/CLionProjects/DRAMsim3/src -I/Users/jisoo/CLionProjects/DRAMsim3/ext/headers 
+CXX_INCLUDES = -I/Users/jisoo/CLionProjects/revDRAMsim3/src -I/Users/jisoo/CLionProjects/revDRAMsim3/ext/headers 
 

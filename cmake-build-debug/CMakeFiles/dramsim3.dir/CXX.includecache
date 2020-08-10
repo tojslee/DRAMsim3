@@ -324,39 +324,39 @@ vector
 utility
 -
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
 vector
 -
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 vector
 -
 bankstate.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 timing.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/timing.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/timing.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/command_queue.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/command_queue.h
 unordered_set
 -
 vector
 -
 channel_state.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 simple_stats.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/simple_stats.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/simple_stats.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 stdint.h
 -
 iostream
@@ -364,19 +364,19 @@ iostream
 vector
 -
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 fstream
 -
 string
 -
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 INIReader.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/INIReader.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/INIReader.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/controller.cc
+/Users/jisoo/CLionProjects/revDRAMsim3/src/controller.cc
 controller.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/controller.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/controller.h
 iomanip
 -
 iostream
@@ -384,7 +384,7 @@ iostream
 limits
 -
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/controller.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/controller.h
 fstream
 -
 map
@@ -394,31 +394,31 @@ unordered_set
 vector
 -
 channel_state.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 command_queue.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/command_queue.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/command_queue.h
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 refresh.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/refresh.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/refresh.h
 simple_stats.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/simple_stats.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/simple_stats.h
 unit.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/unit.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/unit.h
 thermal.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/thermal.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/thermal.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/refresh.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/refresh.h
 vector
 -
 channel_state.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/channel_state.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/simple_stats.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/simple_stats.h
 fstream
 -
 string
@@ -428,11 +428,11 @@ unordered_map
 vector
 -
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 json.hpp
-/Users/jisoo/CLionProjects/DRAMsim3/src/json.hpp
+/Users/jisoo/CLionProjects/revDRAMsim3/src/json.hpp
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/thermal.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/thermal.h
 time.h
 -
 cmath
@@ -446,27 +446,27 @@ iostream
 vector
 -
 bankstate.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/bankstate.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 thermal_config.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/thermal_config.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/thermal_config.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/thermal_config.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/thermal_config.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/timing.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/timing.h
 vector
 -
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 configuration.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/configuration.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
 
-/Users/jisoo/CLionProjects/DRAMsim3/src/unit.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/unit.h
 iostream
 -
 common.h
-/Users/jisoo/CLionProjects/DRAMsim3/src/common.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
 

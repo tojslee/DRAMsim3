@@ -19,6 +19,7 @@ CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/timing.h
+CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../ext/headers/json.hpp
@@ -39,4 +40,5 @@ CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/simple_stats.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/thermal.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/timing.h
+CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/unit.h
 

@@ -13,6 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/dramsim3.dir/src/refresh.cc.o"
   "CMakeFiles/dramsim3.dir/src/simple_stats.cc.o"
   "CMakeFiles/dramsim3.dir/src/timing.cc.o"
+  "CMakeFiles/dramsim3.dir/src/unit.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

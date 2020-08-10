@@ -67,6 +67,7 @@ class TraceBasedCPU : public CPU {
     std::ifstream trace_file_;
     Transaction trans_;
     bool get_next_ = true;
+    std::vector<Transaction> trace_;
 };
 
 }  // namespace dramsim3

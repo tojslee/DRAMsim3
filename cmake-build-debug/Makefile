@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/jisoo/CLionProjects/DRAMsim3
+CMAKE_SOURCE_DIR = /Users/jisoo/CLionProjects/revDRAMsim3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles /Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles /Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -527,6 +527,33 @@ src/timing.cc.s:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/timing.cc.s
 .PHONY : src/timing.cc.s
 
+src/unit.o: src/unit.cpp.o
+
+.PHONY : src/unit.o
+
+# target to build an object file
+src/unit.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/unit.cpp.o
+.PHONY : src/unit.cpp.o
+
+src/unit.i: src/unit.cpp.i
+
+.PHONY : src/unit.i
+
+# target to preprocess a source file
+src/unit.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/unit.cpp.i
+.PHONY : src/unit.cpp.i
+
+src/unit.s: src/unit.cpp.s
+
+.PHONY : src/unit.s
+
+# target to generate assembly for a file
+src/unit.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/unit.cpp.s
+.PHONY : src/unit.cpp.s
+
 tests/test_config.o: tests/test_config.cc.o
 
 .PHONY : tests/test_config.o
@@ -661,6 +688,9 @@ help:
 	@echo "... src/timing.o"
 	@echo "... src/timing.i"
 	@echo "... src/timing.s"
+	@echo "... src/unit.o"
+	@echo "... src/unit.i"
+	@echo "... src/unit.s"
 	@echo "... tests/test_config.o"
 	@echo "... tests/test_config.i"
 	@echo "... tests/test_config.s"

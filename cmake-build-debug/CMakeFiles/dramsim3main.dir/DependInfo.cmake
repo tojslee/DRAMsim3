@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/jisoo/CLionProjects/DRAMsim3/src/cpu.cc" "/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3main.dir/src/cpu.cc.o"
-  "/Users/jisoo/CLionProjects/DRAMsim3/src/main.cc" "/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3main.dir/src/main.cc.o"
+  "/Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.cc" "/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles/dramsim3main.dir/src/cpu.cc.o"
+  "/Users/jisoo/CLionProjects/revDRAMsim3/src/main.cc" "/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles/dramsim3main.dir/src/main.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,7 +17,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/jisoo/CLionProjects/DRAMsim3/cmake-build-debug/CMakeFiles/dramsim3.dir/DependInfo.cmake"
+  "/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles/dramsim3.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -78,13 +78,14 @@ TraceBasedCPU::TraceBasedCPU(const std::string& config_file,
 }
 
 bool TraceBasedCPU::ClockTick() {
+    std::cout<<clk_<<" ";
     memory_system_.ClockTick();
     if (!trace_file_.eof()) {
         if (get_next_) {
             get_next_ = false;
             trace_file_ >> trans_;
         }
-        if (trans_.added_cycle <= clk_) {
+        if (trans_.added_cycle <= clk_ + stall_counter_) {
             get_next_ = memory_system_.WillAcceptTransaction(trans_.addr,
                                                              trans_.is_write);
             if (get_next_) {
@@ -95,8 +96,11 @@ bool TraceBasedCPU::ClockTick() {
             }
         }
     }
-    else{return true;}
+    else{
+        return true;
+    }
     clk_++;
+    std::cout<<std::endl;
     return false;
 }
 

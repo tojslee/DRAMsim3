@@ -6,5 +6,5 @@ CXX_FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sd
 
 CXX_DEFINES = -DFMT_HEADER_ONLY=1 -Ddramsim3_EXPORTS
 
-CXX_INCLUDES = -I/Users/jisoo/CLionProjects/DRAMsim3/ext/headers -I/Users/jisoo/CLionProjects/DRAMsim3/ext/fmt/include 
+CXX_INCLUDES = -I/Users/jisoo/CLionProjects/revDRAMsim3/ext/headers -I/Users/jisoo/CLionProjects/revDRAMsim3/ext/fmt/include 
 
