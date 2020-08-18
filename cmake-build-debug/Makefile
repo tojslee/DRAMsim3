@@ -149,6 +149,33 @@ dramsim3/fast:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/build
 .PHONY : dramsim3/fast
 
+src/adder.o: src/adder.cpp.o
+
+.PHONY : src/adder.o
+
+# target to build an object file
+src/adder.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/adder.cpp.o
+.PHONY : src/adder.cpp.o
+
+src/adder.i: src/adder.cpp.i
+
+.PHONY : src/adder.i
+
+# target to preprocess a source file
+src/adder.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/adder.cpp.i
+.PHONY : src/adder.cpp.i
+
+src/adder.s: src/adder.cpp.s
+
+.PHONY : src/adder.s
+
+# target to generate assembly for a file
+src/adder.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/adder.cpp.s
+.PHONY : src/adder.cpp.s
+
 src/bankstate.o: src/bankstate.cc.o
 
 .PHONY : src/bankstate.o
@@ -175,6 +202,33 @@ src/bankstate.s: src/bankstate.cc.s
 src/bankstate.cc.s:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/bankstate.cc.s
 .PHONY : src/bankstate.cc.s
+
+src/buffer.o: src/buffer.cpp.o
+
+.PHONY : src/buffer.o
+
+# target to build an object file
+src/buffer.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/buffer.cpp.o
+.PHONY : src/buffer.cpp.o
+
+src/buffer.i: src/buffer.cpp.i
+
+.PHONY : src/buffer.i
+
+# target to preprocess a source file
+src/buffer.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/buffer.cpp.i
+.PHONY : src/buffer.cpp.i
+
+src/buffer.s: src/buffer.cpp.s
+
+.PHONY : src/buffer.s
+
+# target to generate assembly for a file
+src/buffer.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/buffer.cpp.s
+.PHONY : src/buffer.cpp.s
 
 src/channel_state.o: src/channel_state.cc.o
 
@@ -446,6 +500,33 @@ src/memory_system.cc.s:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/memory_system.cc.s
 .PHONY : src/memory_system.cc.s
 
+src/multiplier.o: src/multiplier.cpp.o
+
+.PHONY : src/multiplier.o
+
+# target to build an object file
+src/multiplier.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/multiplier.cpp.o
+.PHONY : src/multiplier.cpp.o
+
+src/multiplier.i: src/multiplier.cpp.i
+
+.PHONY : src/multiplier.i
+
+# target to preprocess a source file
+src/multiplier.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/multiplier.cpp.i
+.PHONY : src/multiplier.cpp.i
+
+src/multiplier.s: src/multiplier.cpp.s
+
+.PHONY : src/multiplier.s
+
+# target to generate assembly for a file
+src/multiplier.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/multiplier.cpp.s
+.PHONY : src/multiplier.cpp.s
+
 src/refresh.o: src/refresh.cc.o
 
 .PHONY : src/refresh.o
@@ -646,9 +727,15 @@ help:
 	@echo "... dramsim3main"
 	@echo "... rebuild_cache"
 	@echo "... dramsim3"
+	@echo "... src/adder.o"
+	@echo "... src/adder.i"
+	@echo "... src/adder.s"
 	@echo "... src/bankstate.o"
 	@echo "... src/bankstate.i"
 	@echo "... src/bankstate.s"
+	@echo "... src/buffer.o"
+	@echo "... src/buffer.i"
+	@echo "... src/buffer.s"
 	@echo "... src/channel_state.o"
 	@echo "... src/channel_state.i"
 	@echo "... src/channel_state.s"
@@ -679,6 +766,9 @@ help:
 	@echo "... src/memory_system.o"
 	@echo "... src/memory_system.i"
 	@echo "... src/memory_system.s"
+	@echo "... src/multiplier.o"
+	@echo "... src/multiplier.i"
+	@echo "... src/multiplier.s"
 	@echo "... src/refresh.o"
 	@echo "... src/refresh.i"
 	@echo "... src/refresh.s"

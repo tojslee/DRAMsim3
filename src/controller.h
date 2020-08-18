@@ -37,11 +37,11 @@ class Controller {
     void PrintFinalStats();
     void ResetStats() { simple_stats_.Reset(); }
     void print_stall(){std::cout<<stall_counter_<<std::endl;}
-    int freeUnit() const;
     std::pair<uint64_t, int> ReturnDoneTrans(uint64_t clock);
 
     int channel_id_;
     uint64_t stall_counter_;
+    int unit_id_;
 
    private:
     uint64_t clk_;
@@ -50,7 +50,6 @@ class Controller {
     ChannelState channel_state_;
     CommandQueue cmd_queue_;
     Refresh refresh_;
-    std::vector<unit> units_;
 
 #ifdef THERMAL
     ThermalCalculator &thermal_calc_;

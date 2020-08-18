@@ -9,6 +9,7 @@
 #include "configuration.h"
 #include "controller.h"
 #include "timing.h"
+#include "buffer.h"
 
 #ifdef THERMAL
 #include "thermal.h"
@@ -27,17 +28,25 @@ class BaseDRAMSystem {
     void PrintEpochStats();
     void PrintStats();
     void ResetStats();
+    int isEnd();
 
 
 
     virtual bool WillAcceptTransaction(uint64_t hex_addr,
                                        bool is_write) const = 0;
     virtual bool AddTransaction(uint64_t hex_addr, bool is_write) = 0;
+    bool SetBuffer(uint64_t hex_addr, bool is_write, int flag);
+    bool ResetBuffer(int flag);
+    uint64_t getAddr(int flag);
     virtual void ClockTick() = 0;
     int GetChannel(uint64_t hex_addr) const;
 
     std::function<void(uint64_t req_id)> read_callback_, write_callback_;
     static int total_channels_;
+    bool getisIn(int flag);
+    buffer buffer_a;
+    buffer buffer_b;
+    buffer buffer_c;
 
    protected:
     uint64_t id_;

@@ -15,6 +15,7 @@ namespace dramsim3{
         bool isOccupied() const {return occupied;}
         bool occupied;
         Transaction trans;
+        uint64_t  addr;
     };
 }
 

@@ -36,9 +36,10 @@ Controller::Controller(int channel, const Config &config, const Timing &timing)
     }
 
     // unit initialization
-    unit u = unit();
-    units_.push_back(u);
-    units_.push_back(u);
+    /*unit u = unit();
+    for(int i=0;i<unit_id_;i++){
+        this->units_.push_back(u);
+    }*/
 
 #ifdef CMD_TRACE
     std::string trace_file_name = config_.output_prefix + "ch_" +
@@ -47,31 +48,33 @@ Controller::Controller(int channel, const Config &config, const Timing &timing)
     cmd_trace_.open(trace_file_name, std::ofstream::out);
 #endif  // CMD_TRACE
 }
-
+/*
 int Controller::freeUnit() const{ // return -1 if all of the Unit is occupied else return index
-    for(int i=0;i<2;i++){
+    for(int i=0;i<unit_id_;i++){
         if(!units_[i].isOccupied()){
             return i;
         }
     }
     return -1;
-}
+}*/
 
 std::pair<uint64_t, int> Controller::ReturnDoneTrans(uint64_t clk) {
     auto it = return_queue_.begin();
     while (it != return_queue_.end()) {
+
         if (clk >= it->complete_cycle) {
             if (it->is_write) {
                 simple_stats_.Increment("num_writes_done");
             } else {
                 simple_stats_.Increment("num_reads_done");
                 simple_stats_.AddValue("read_latency", clk_ - it->added_cycle);
-            }
-            for(int i=0;i<2;i++){
+                //std::cout<<clk<<" "<<it->added_cycle<<std::endl;
+            }/*
+            for(int i=0;i<unit_id_;i++){
                 if(units_[i].trans.addr == it->addr){
                     units_[i].occupied = false;
                 }
-            }
+            }*/
             auto pair = std::make_pair(it->addr, it->is_write);
             it = return_queue_.erase(it);
             return pair;
@@ -185,10 +188,10 @@ void Controller::ClockTick() {
 
 bool Controller::WillAcceptTransaction(uint64_t hex_addr, bool is_write) {
     if (is_unified_queue_) {
-        if(freeUnit() == -1 && !is_write){ stall_counter_++; return false; }
+        if(!is_write){ stall_counter_++; return false; }
         return unified_queue_.size() < unified_queue_.capacity();
     } else if (!is_write) {
-        if(freeUnit() == -1){ stall_counter_++; return false; }
+        //if(freeUnit() == -1){ stall_counter_++; return false; }
         return read_queue_.size() < read_queue_.capacity();
     } else {
         return write_buffer_.size() < write_buffer_.capacity();
@@ -199,7 +202,7 @@ bool Controller::AddTransaction(Transaction trans) {
     trans.added_cycle = clk_;
     simple_stats_.AddValue("interarrival_latency", clk_ - last_trans_clk_);
     last_trans_clk_ = clk_;
-    const int idx = freeUnit();
+    //const int idx = freeUnit();
 
     if (trans.is_write) {
         if (pending_wr_q_.count(trans.addr) == 0) {  // can not merge writes
@@ -218,8 +221,8 @@ bool Controller::AddTransaction(Transaction trans) {
         if (pending_wr_q_.count(trans.addr) > 0) {
             trans.complete_cycle = clk_ + 1;
             return_queue_.push_back(trans);
-            units_[idx].trans = trans;
-            units_[idx].occupied = true;
+            //units_[idx].trans = trans;
+            //units_[idx].occupied = true;
             return true;
         }
         pending_rd_q_.insert(std::make_pair(trans.addr, trans));
@@ -231,8 +234,8 @@ bool Controller::AddTransaction(Transaction trans) {
                 read_queue_.push_back(trans);
             }
         }
-        units_[idx].trans = trans;
-        units_[idx].occupied = true;
+        //units_[idx].trans = trans;
+        //units_[idx].occupied = true;
         return true;
     }
 }

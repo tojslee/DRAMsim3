@@ -196,10 +196,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/adder.cpp">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/adder.h">
+			<Option target="dramsim3"/>
+		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.cc">
 			<Option target="dramsim3"/>
 		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.cpp">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h">
 			<Option target="dramsim3"/>
 		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.cc">
@@ -257,6 +269,12 @@
 			<Option target="dramsim3"/>
 		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/memory_system.h">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.cpp">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h">
 			<Option target="dramsim3"/>
 		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/refresh.cc">

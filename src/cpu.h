@@ -6,27 +6,40 @@
 #include <random>
 #include <string>
 #include "memory_system.h"
+#include "unit.h"
+#include "adder.h"
+#include "multiplier.h"
 
 namespace dramsim3 {
 
 class CPU {
    public:
-    CPU(const std::string& config_file, const std::string& output_dir)
+    CPU(const std::string& config_file, const std::string& output_dir, const std::int32_t units_)
         : memory_system_(
               config_file, output_dir,
               std::bind(&CPU::ReadCallBack, this, std::placeholders::_1),
               std::bind(&CPU::WriteCallBack, this, std::placeholders::_1)),
-          clk_(0), stall_counter_(0) {}
+          clk_(0), stall_counter_(0), units_(units_) {
+        for(int i=0;i<units_;i++){unit temp = unit(); allUnits.push_back(temp);}
+    }
     virtual bool ClockTick() = 0;
-    void ReadCallBack(uint64_t addr) { return; }
-    void WriteCallBack(uint64_t addr) { return; }
+    void ReadCallBack(uint64_t addr);
+    void WriteCallBack(uint64_t addr) { writeCallBacks.push_back(addr);return; }
     void PrintStats() { memory_system_.PrintStats(); }
     void PrintStall(){std::cout<<stall_counter_<<std::endl;}
+    bool isEnd();
+    int freeUnit();
 
    protected:
     MemorySystem memory_system_;
     uint64_t clk_;
     uint64_t stall_counter_;
+    std::vector<uint64_t> readCallBacks;
+    int units_;
+    std::vector<unit> allUnits;
+    adder add_;
+    multiplier multiple_;
+    std::vector<uint64_t> writeCallBacks;
 };
 
 class RandomCPU : public CPU {
@@ -54,12 +67,14 @@ class StreamCPU : public CPU {
     bool inserted_c_ = false;
     const uint64_t array_size_ = 4000;  // elements in array
     const int stride_ = 4;                // stride in bytes
+    int adder_ = 0;
+    int multiplier_ = 0;
 };
 
 class TraceBasedCPU : public CPU {
    public:
     TraceBasedCPU(const std::string& config_file, const std::string& output_dir,
-                  const std::string& trace_file);
+                  const std::string& trace_file, const::int32_t units_);
     ~TraceBasedCPU() { trace_file_.close(); }
     bool ClockTick() override;
 
@@ -67,6 +82,7 @@ class TraceBasedCPU : public CPU {
     std::ifstream trace_file_;
     Transaction trans_;
     bool get_next_ = true;
+    bool stalled_ = false;
     std::vector<Transaction> trace_;
 };
 

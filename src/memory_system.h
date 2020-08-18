@@ -26,11 +26,15 @@ class MemorySystem {
     int GetQueueSize() const;
     void PrintStats() const;
     void ResetStats();
+    int isEnd(){return dram_system_->isEnd();}
 
     bool WillAcceptTransaction(uint64_t hex_addr, bool is_write) const;
     bool AddTransaction(uint64_t hex_addr, bool is_write);
 
-
+    bool SetBuffer(uint64_t hex_addr, bool is_write, int flag);
+    bool ResetBuffer(int flag);
+    bool getisIn(int flag);
+    uint64_t getAddr(int flag);
 
    private:
     // These have to be pointers because Gem5 will try to push this object

@@ -25,6 +25,10 @@ int main(int argc, const char **argv) {
         parser, "trace",
         "Trace file, setting this option will ignore -s option",
         {'t', "trace"});
+    args::ValueFlag<std::int32_t> unit_arg(
+            parser, "unit_", "LD, ST unit",
+            {'u', "unit"}, 2
+            );
     args::Positional<std::string> config_arg(
         parser, "config", "The config file name (mandatory)");
 
@@ -49,15 +53,16 @@ int main(int argc, const char **argv) {
     std::string output_dir = args::get(output_dir_arg);
     std::string trace_file = args::get(trace_file_arg);
     std::string stream_type = args::get(stream_arg);
+    std::int32_t units_ = args::get(unit_arg);
 
     CPU *cpu;
     if (!trace_file.empty()) {
-        cpu = new TraceBasedCPU(config_file, output_dir, trace_file);
+        cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_);
     } else {
         if (stream_type == "stream" || stream_type == "s") {
-            cpu = new StreamCPU(config_file, output_dir);
+            cpu = new StreamCPU(config_file, output_dir, units_);
         } else {
-            cpu = new RandomCPU(config_file, output_dir);
+            cpu = new RandomCPU(config_file, output_dir, units_);
         }
     }
 

@@ -50,6 +50,48 @@ void BaseDRAMSystem::PrintEpochStats() {
     return;
 }
 
+bool BaseDRAMSystem::SetBuffer(uint64_t hex_addr, bool is_write, int flag) {
+    if(flag == 1){
+        buffer_a.addr = hex_addr;
+        buffer_a.isIn = true;
+    }
+    else if(flag == 2){
+        buffer_b.addr = hex_addr;
+        buffer_b.isIn = true;
+    }
+    else{
+        buffer_c.addr = hex_addr;
+        buffer_c.isIn = true;
+    }
+}
+
+bool BaseDRAMSystem::ResetBuffer(int flag) {
+    if(flag == 1){buffer_a.isIn = false;}
+    else if(flag == 2){buffer_b.isIn = false;}
+    else{buffer_c.isIn = false;}
+}
+
+uint64_t BaseDRAMSystem::getAddr(int flag){
+    if(flag == 1){return buffer_a.addr;}
+    else if(flag == 2){return buffer_b.addr;}
+    else{return buffer_c.addr;}
+}
+
+bool BaseDRAMSystem::getisIn(int flag){
+    if(flag == 1){return buffer_a.getisIn();}
+    else if(flag == 2){return buffer_b.getisIn();}
+    else{return buffer_c.getisIn();}
+}
+/*
+int BaseDRAMSystem::isEnd(){
+    for(int i=0;i<ctrls_.size();i++){
+        if(ctrls_[i]->freeUnit() != -1){
+            return 0;
+        }
+    }
+    return 1;
+}*/
+
 void BaseDRAMSystem::PrintStats() {
     // Finish epoch output, remove last comma and append ]
     std::ofstream epoch_out(config_.json_epoch_name, std::ios_base::in |

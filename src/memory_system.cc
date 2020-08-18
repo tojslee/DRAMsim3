@@ -46,6 +46,22 @@ bool MemorySystem::AddTransaction(uint64_t hex_addr, bool is_write) {
     return dram_system_->AddTransaction(hex_addr, is_write);
 }
 
+bool MemorySystem::SetBuffer(uint64_t hex_addr, bool is_write, int flag){
+    return dram_system_->SetBuffer(hex_addr, is_write, flag);
+}
+
+bool MemorySystem::ResetBuffer(int flag){
+    return dram_system_->ResetBuffer(flag);
+}
+
+bool MemorySystem::getisIn(int flag){
+    return dram_system_->getisIn(flag);
+}
+
+uint64_t MemorySystem::getAddr(int flag){
+    return dram_system_->getAddr(flag);
+}
+
 void MemorySystem::PrintStats() const { dram_system_->PrintStats(); }
 
 void MemorySystem::ResetStats() { dram_system_->ResetStats(); }

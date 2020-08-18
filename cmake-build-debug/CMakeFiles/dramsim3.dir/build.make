@@ -226,6 +226,45 @@ CMakeFiles/dramsim3.dir/src/unit.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dramsim3.dir/src/unit.cpp.s"
 	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jisoo/CLionProjects/revDRAMsim3/src/unit.cpp -o CMakeFiles/dramsim3.dir/src/unit.cpp.s
 
+CMakeFiles/dramsim3.dir/src/buffer.cpp.o: CMakeFiles/dramsim3.dir/flags.make
+CMakeFiles/dramsim3.dir/src/buffer.cpp.o: ../src/buffer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/dramsim3.dir/src/buffer.cpp.o"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dramsim3.dir/src/buffer.cpp.o -c /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.cpp
+
+CMakeFiles/dramsim3.dir/src/buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dramsim3.dir/src/buffer.cpp.i"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.cpp > CMakeFiles/dramsim3.dir/src/buffer.cpp.i
+
+CMakeFiles/dramsim3.dir/src/buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dramsim3.dir/src/buffer.cpp.s"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.cpp -o CMakeFiles/dramsim3.dir/src/buffer.cpp.s
+
+CMakeFiles/dramsim3.dir/src/adder.cpp.o: CMakeFiles/dramsim3.dir/flags.make
+CMakeFiles/dramsim3.dir/src/adder.cpp.o: ../src/adder.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/dramsim3.dir/src/adder.cpp.o"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dramsim3.dir/src/adder.cpp.o -c /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.cpp
+
+CMakeFiles/dramsim3.dir/src/adder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dramsim3.dir/src/adder.cpp.i"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.cpp > CMakeFiles/dramsim3.dir/src/adder.cpp.i
+
+CMakeFiles/dramsim3.dir/src/adder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dramsim3.dir/src/adder.cpp.s"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.cpp -o CMakeFiles/dramsim3.dir/src/adder.cpp.s
+
+CMakeFiles/dramsim3.dir/src/multiplier.cpp.o: CMakeFiles/dramsim3.dir/flags.make
+CMakeFiles/dramsim3.dir/src/multiplier.cpp.o: ../src/multiplier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/dramsim3.dir/src/multiplier.cpp.o"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dramsim3.dir/src/multiplier.cpp.o -c /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.cpp
+
+CMakeFiles/dramsim3.dir/src/multiplier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dramsim3.dir/src/multiplier.cpp.i"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.cpp > CMakeFiles/dramsim3.dir/src/multiplier.cpp.i
+
+CMakeFiles/dramsim3.dir/src/multiplier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dramsim3.dir/src/multiplier.cpp.s"
+	/usr/local/Cellar/gcc@5/5.5.0_4/bin/g++-5 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.cpp -o CMakeFiles/dramsim3.dir/src/multiplier.cpp.s
+
 # Object files for target dramsim3
 dramsim3_OBJECTS = \
 "CMakeFiles/dramsim3.dir/src/bankstate.cc.o" \
@@ -240,7 +279,10 @@ dramsim3_OBJECTS = \
 "CMakeFiles/dramsim3.dir/src/simple_stats.cc.o" \
 "CMakeFiles/dramsim3.dir/src/timing.cc.o" \
 "CMakeFiles/dramsim3.dir/src/memory_system.cc.o" \
-"CMakeFiles/dramsim3.dir/src/unit.cpp.o"
+"CMakeFiles/dramsim3.dir/src/unit.cpp.o" \
+"CMakeFiles/dramsim3.dir/src/buffer.cpp.o" \
+"CMakeFiles/dramsim3.dir/src/adder.cpp.o" \
+"CMakeFiles/dramsim3.dir/src/multiplier.cpp.o"
 
 # External object files for target dramsim3
 dramsim3_EXTERNAL_OBJECTS =
@@ -258,9 +300,12 @@ dramsim3_EXTERNAL_OBJECTS =
 ../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/timing.cc.o
 ../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/memory_system.cc.o
 ../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/unit.cpp.o
+../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/buffer.cpp.o
+../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/adder.cpp.o
+../libdramsim3.dylib: CMakeFiles/dramsim3.dir/src/multiplier.cpp.o
 ../libdramsim3.dylib: CMakeFiles/dramsim3.dir/build.make
 ../libdramsim3.dylib: CMakeFiles/dramsim3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX shared library ../libdramsim3.dylib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jisoo/CLionProjects/revDRAMsim3/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX shared library ../libdramsim3.dylib"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dramsim3.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
