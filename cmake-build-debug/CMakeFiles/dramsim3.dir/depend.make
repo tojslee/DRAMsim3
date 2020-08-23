@@ -11,6 +11,10 @@ CMakeFiles/dramsim3.dir/src/bankstate.cc.o: ../src/common.h
 CMakeFiles/dramsim3.dir/src/buffer.cpp.o: ../src/buffer.cpp
 CMakeFiles/dramsim3.dir/src/buffer.cpp.o: ../src/buffer.h
 
+CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/buffer.h
+CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/calculator.cpp
+CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/calculator.h
+
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o: ../src/bankstate.h
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o: ../src/channel_state.cc

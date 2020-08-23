@@ -7,6 +7,7 @@ CMakeFiles/dramsim3main.dir/src/cpu.cc.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/command_queue.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
@@ -31,6 +32,7 @@ CMakeFiles/dramsim3main.dir/src/main.cc.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/command_queue.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/common.h

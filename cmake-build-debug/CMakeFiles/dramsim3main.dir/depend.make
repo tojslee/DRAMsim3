@@ -6,6 +6,7 @@ CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../ext/headers/json.hpp
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/adder.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/bankstate.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/buffer.h
+CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/calculator.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/channel_state.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/command_queue.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/common.h
@@ -30,6 +31,7 @@ CMakeFiles/dramsim3main.dir/src/main.cc.o: ../ext/headers/args.hxx
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/adder.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/bankstate.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/buffer.h
+CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/calculator.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/channel_state.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/command_queue.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/common.h

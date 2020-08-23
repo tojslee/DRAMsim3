@@ -324,28 +324,6 @@ vector
 utility
 -
 
-/Users/jisoo/CLionProjects/revDRAMsim3/ext/headers/args.hxx
-algorithm
--
-exception
--
-functional
--
-sstream
--
-string
--
-tuple
--
-vector
--
-unordered_map
--
-unordered_set
--
-type_traits
--
-
 /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.h
 iostream
 -
@@ -359,6 +337,16 @@ common.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
 iostream
 -
+vector
+-
+
+/Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
+iostream
+-
+vector
+-
+buffer.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 vector
@@ -449,6 +437,8 @@ adder.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/adder.h
 multiplier.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h
+calculator.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
 fstream
@@ -479,14 +469,6 @@ vector
 -
 dram_system.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
-
-/Users/jisoo/CLionProjects/revDRAMsim3/src/main.cc
-iostream
--
-./../ext/headers/args.hxx
-/Users/jisoo/CLionProjects/revDRAMsim3/ext/headers/args.hxx
-cpu.h
-/Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/memory_system.h
 functional

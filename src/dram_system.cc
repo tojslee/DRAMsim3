@@ -52,15 +52,15 @@ void BaseDRAMSystem::PrintEpochStats() {
 
 bool BaseDRAMSystem::SetBuffer(uint64_t hex_addr, bool is_write, int flag) {
     if(flag == 1){
-        buffer_a.addr = hex_addr;
+        buffer_a.waitAddr.push_back(hex_addr);
         buffer_a.isIn = true;
     }
     else if(flag == 2){
-        buffer_b.addr = hex_addr;
+        buffer_b.waitAddr.push_back(hex_addr);
         buffer_b.isIn = true;
     }
     else{
-        buffer_c.addr = hex_addr;
+        buffer_c.waitAddr.push_back(hex_addr);
         buffer_c.isIn = true;
     }
 }
@@ -72,9 +72,9 @@ bool BaseDRAMSystem::ResetBuffer(int flag) {
 }
 
 uint64_t BaseDRAMSystem::getAddr(int flag){
-    if(flag == 1){return buffer_a.addr;}
-    else if(flag == 2){return buffer_b.addr;}
-    else{return buffer_c.addr;}
+    if(flag == 1){return buffer_a.waitAddr.front();}
+    else if(flag == 2){return buffer_b.waitAddr.front();}
+    else{return buffer_c.waitAddr.front();}
 }
 
 bool BaseDRAMSystem::getisIn(int flag){

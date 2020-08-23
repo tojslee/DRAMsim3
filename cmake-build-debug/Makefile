@@ -230,6 +230,33 @@ src/buffer.cpp.s:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/buffer.cpp.s
 .PHONY : src/buffer.cpp.s
 
+src/calculator.o: src/calculator.cpp.o
+
+.PHONY : src/calculator.o
+
+# target to build an object file
+src/calculator.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/calculator.cpp.o
+.PHONY : src/calculator.cpp.o
+
+src/calculator.i: src/calculator.cpp.i
+
+.PHONY : src/calculator.i
+
+# target to preprocess a source file
+src/calculator.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/calculator.cpp.i
+.PHONY : src/calculator.cpp.i
+
+src/calculator.s: src/calculator.cpp.s
+
+.PHONY : src/calculator.s
+
+# target to generate assembly for a file
+src/calculator.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/calculator.cpp.s
+.PHONY : src/calculator.cpp.s
+
 src/channel_state.o: src/channel_state.cc.o
 
 .PHONY : src/channel_state.o
@@ -736,6 +763,9 @@ help:
 	@echo "... src/buffer.o"
 	@echo "... src/buffer.i"
 	@echo "... src/buffer.s"
+	@echo "... src/calculator.o"
+	@echo "... src/calculator.i"
+	@echo "... src/calculator.s"
 	@echo "... src/channel_state.o"
 	@echo "... src/channel_state.i"
 	@echo "... src/channel_state.s"

@@ -11,6 +11,10 @@ CMakeFiles/dramsim3.dir/src/bankstate.cc.o
 CMakeFiles/dramsim3.dir/src/buffer.cpp.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.cpp
  /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
+CMakeFiles/dramsim3.dir/src/calculator.cpp.o
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.cpp
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o
  ../ext/headers/INIReader.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h

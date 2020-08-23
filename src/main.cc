@@ -29,6 +29,14 @@ int main(int argc, const char **argv) {
             parser, "unit_", "LD, ST unit",
             {'u', "unit"}, 2
             );
+    args::ValueFlag<std::int32_t> row_arg(
+            parser, "row_", "Systolic array row num",
+            {'r', "row"}, 4
+            );
+    args::ValueFlag<std::int32_t> column_arg(
+            parser, "column_", "Systolic array column num",
+            {'c', "column"}, 4
+            );
     args::Positional<std::string> config_arg(
         parser, "config", "The config file name (mandatory)");
 
@@ -54,15 +62,17 @@ int main(int argc, const char **argv) {
     std::string trace_file = args::get(trace_file_arg);
     std::string stream_type = args::get(stream_arg);
     std::int32_t units_ = args::get(unit_arg);
+    std::int32_t row_ = args::get(row_arg);
+    std::int32_t column_ = args::get(column_arg);
 
     CPU *cpu;
     if (!trace_file.empty()) {
-        cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_);
+        cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_, row_, column_);
     } else {
         if (stream_type == "stream" || stream_type == "s") {
-            cpu = new StreamCPU(config_file, output_dir, units_);
+            cpu = new StreamCPU(config_file, output_dir, units_, row_, column_);
         } else {
-            cpu = new RandomCPU(config_file, output_dir, units_);
+            cpu = new RandomCPU(config_file, output_dir, units_, row_, column_);
         }
     }
 

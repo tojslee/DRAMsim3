@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/dramsim3.dir/src/adder.cpp.o"
   "CMakeFiles/dramsim3.dir/src/bankstate.cc.o"
   "CMakeFiles/dramsim3.dir/src/buffer.cpp.o"
+  "CMakeFiles/dramsim3.dir/src/calculator.cpp.o"
   "CMakeFiles/dramsim3.dir/src/channel_state.cc.o"
   "CMakeFiles/dramsim3.dir/src/command_queue.cc.o"
   "CMakeFiles/dramsim3.dir/src/common.cc.o"
