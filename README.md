@@ -172,3 +172,14 @@ other Verilog simulators may require a slightly different format.
 |4*4|2792|13.9719|9.351487|
 |8*8|2166|15.0083|14.734411|
 |16*16|1983|14.754|47.225025|
+
+
+# Weight stationary matrix multiplication구현
+
+- input, filter matrix는 전부 16 * 16으로 제한
+
+1. systolic array에 input, filter buffer에 해당 데이터 읽어오기 (read CallBack으로 다 읽은 경우 다음 단계인 계산으로 넘어감)
+
+2. 실제 matrix multiplication (실제 계산은 수행하지 않고 cycle소모와 output buffer로 전달하는 데이터 수만 체크)
+
+3. output buffer에 있는 데이터 write (write CallBack으로 처리)
