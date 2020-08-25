@@ -156,3 +156,17 @@ other Verilog simulators may require a slightly different format.
 
 [6] Li, S. (2019). Scalable and Accurate Memory System Simulation (Doctoral dissertation).
 
+
+
+## 추가
+
+-u, --unit : LD/ST unit의 개수 지정
+-r, --row : systolic array의 row 지정
+--col, --column : systolic array의 column 지정
+
+|systolic array size|cycle(cycles)|bandwidth|array usage(%)|
+|:------:|:------:|:-------:|:--------:|
+|2*2|5406|9.62129|8.510638|
+|4*4|2792|13.9719|9.351487|
+|8*8|2166|15.0083|14.734411|
+|16*16|1983|14.754|47.225025|
