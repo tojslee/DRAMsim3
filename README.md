@@ -161,7 +161,9 @@ other Verilog simulators may require a slightly different format.
 ## 추가
 
 -u, --unit : LD/ST unit의 개수 지정
+
 -r, --row : systolic array의 row 지정
+
 --col, --column : systolic array의 column 지정
 
 |systolic array size|cycle(cycles)|bandwidth|array usage(%)|
