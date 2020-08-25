@@ -75,6 +75,7 @@ class StreamCPU : public CPU {
     const int stride_ = 4;                // stride in bytes
     const int elements_ = 16;
     int counter_ = 0;
+    bool endCal = false;
 };
 
 class TraceBasedCPU : public CPU {

@@ -23,11 +23,13 @@ public:
     void bufferReset(int idx);
     int getNums(int idx);
     void subNums(int idx);
+    int getUsage(){return usage;}
 protected:
     int row;
     int column;
     int inputCal = 0;
     int filterCal = 0;
+    int usage = 0;
     buffer inputBuffer; // idx = 1
     buffer filterBuffer; // idx = 2
     buffer outputBuffer; // idx = 3

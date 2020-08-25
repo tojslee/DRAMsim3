@@ -70,11 +70,12 @@ bool calculator::fullBuffer(int idx) {
 }
 
 bool calculator::matrixMultiple(){
-    if(inputCal < column + row - 1){inputCal++;}
-    if(filterCal < row){filterCal++;}
-
-    if(inputCal == column + row - 1 && filterCal == row){
-        outputBuffer.nums = row;
+    if(inputCal <= column + row - 1){inputCal++;}
+    if(filterCal <= row){filterCal++;}
+    usage += inputCal;
+    usage += filterCal;
+    if(inputCal > column + row - 1 && filterCal > row){
+        outputBuffer.nums = row * column;
         outputBuffer.isIn = true;
         return true;
     }

@@ -46,7 +46,7 @@ bool StreamCPU::ClockTick() {
 
     // moving on to next set of arrays
     memory_system_.ClockTick();
-    if (offset_a_ >= array_size_ ||clk_ == 0) {
+    if (offset_a_ > array_size_ ||clk_ == 0) {
         addr_a_ = gen();
         addr_b_ = gen();
         addr_c_ = gen();
@@ -54,6 +54,7 @@ bool StreamCPU::ClockTick() {
         offset_b_ = 0;
         offset_c_ = 0;
     }
+
     int idx = freeUnit();
     if(!inserted_a_ &&
         !systolic_array.endGetInput(1)){
@@ -113,8 +114,8 @@ bool StreamCPU::ClockTick() {
     systolic_array.setAddr(1, temp);
     systolic_array.setAddr(2, temp2);
 
-    bool endCal = false;
-    if(systolic_array.fullBuffer(1) && systolic_array.fullBuffer(2)){
+
+    if(systolic_array.fullBuffer(1) && systolic_array.fullBuffer(2) && !endCal){
         // calculate matrix mul
         endCal = systolic_array.matrixMultiple();
     }
@@ -127,6 +128,10 @@ bool StreamCPU::ClockTick() {
                 memory_system_.AddTransaction(addr_c_ + offset_c_, true);
                 systolic_array.subNums(3);
                 offset_c_ += stride_;
+                //std::cout<<systolic_array.getNums(3)<<" ";
+            }
+            else{
+                break;
             }
         }
         if(systolic_array.getNums(3) == 0){
@@ -135,7 +140,7 @@ bool StreamCPU::ClockTick() {
         }
     }
 
-    if(writeCallBacks.size() == row_){writeCallBacks.clear();}
+    if(writeCallBacks.size() == row_ * col_){writeCallBacks.clear();}
 
     /*
     int idx = freeUnit();
@@ -220,6 +225,7 @@ bool StreamCPU::ClockTick() {
             offset_b_ -= row_ * stride_;
         }
         else{counter_ = 0;}
+        endCal = false;
         systolic_array.bufferReset(1);
         systolic_array.bufferReset(2);
         //memory_system_.ResetBuffer(1);
@@ -229,13 +235,16 @@ bool StreamCPU::ClockTick() {
         //add_.resetCounter();
         //multiple_.resetCounter();
         if(offset_a_ >= array_size_){
+            int res = systolic_array.getUsage();
+            double sys = (double)res / (double)clk_;
+            printf("%f", sys*100);
             return true;
         }
     }
     else{
         stall_counter_++;
     }
-    std::cout<<clk_<<std::endl;
+    //std::cout<<clk_<<std::endl;
     clk_++;
 
 
@@ -281,7 +290,7 @@ bool TraceBasedCPU::ClockTick() {
                     allUnits[idx].addr = trans_.addr;
                     allUnits[idx].occupied = true;
                     stalled_ = false;
-                    std::cout<<clk_<<" "<<idx<<" "<<trans_.added_cycle<<std::endl;
+                    //std::cout<<clk_<<" "<<idx<<" "<<trans_.added_cycle<<std::endl;
                 }
                 else{
                     stalled_ = true;
@@ -295,7 +304,9 @@ bool TraceBasedCPU::ClockTick() {
         //std::cout<<std::endl;
     }
     else{
-        if(end){return true;}
+        if(end){
+            return true;
+        }
     }
     //std::cout<<clk_<<" "<<stalled_<<std::endl;
     clk_++;

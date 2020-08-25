@@ -35,7 +35,7 @@ int main(int argc, const char **argv) {
             );
     args::ValueFlag<std::int32_t> column_arg(
             parser, "column_", "Systolic array column num",
-            {'c', "column"}, 4
+            {"col", "column"}, 4
             );
     args::Positional<std::string> config_arg(
         parser, "config", "The config file name (mandatory)");
@@ -82,7 +82,7 @@ int main(int argc, const char **argv) {
         }
     }
     cpu->PrintStats();
-    cpu->PrintStall();
+    //cpu->PrintStall();
 
     delete cpu;
 
