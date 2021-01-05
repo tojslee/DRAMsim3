@@ -5,6 +5,7 @@
 #include <functional>
 #include <random>
 #include <string>
+#include "pe.h"
 #include "memory_system.h"
 #include "unit.h"
 #include "adder.h"
@@ -31,6 +32,8 @@ class CPU {
     void PrintStall(){std::cout<<stall_counter_<<std::endl;}
     bool isEnd();
     int freeUnit();
+    void fixWeight(std::vector<std::vector<int>> v);
+    void fixA(std::vector<std::vector<int>> v);
 
    protected:
     MemorySystem memory_system_;
@@ -45,6 +48,7 @@ class CPU {
     calculator systolic_array;
     int col_;
     int row_;
+    int elements_ = 4;
     bool writeStart_ = false;
 };
 
@@ -64,6 +68,7 @@ class StreamCPU : public CPU {
    public:
     using CPU::CPU;
     bool ClockTick() override;
+    int getElementNum(){return elements_;}
 
    private:
     uint64_t addr_a_, addr_b_, addr_c_, offset_a_, offset_b_, offset_c_ = 0;
@@ -71,11 +76,12 @@ class StreamCPU : public CPU {
     bool inserted_a_ = false;
     bool inserted_b_ = false;
     bool inserted_c_ = false;
-    const uint64_t array_size_ = 64;  // elements in array
-    const int stride_ = 4;                // stride in bytes
-    const int elements_ = 16;
+    const uint64_t array_size_ = 16;  // elements in array
+    const int stride_ = 1;                // stride in bytes
+    const int elements_ = 4;
     int counter_ = 0;
     bool endCal = false;
+    bool endprop = false;
 };
 
 class TraceBasedCPU : public CPU {

@@ -7,11 +7,12 @@
 #include <iostream>
 #include <vector>
 #include "buffer.h"
+#include "pe.h"
 
 
 class calculator {
 public:
-    calculator(int row_, int column_):row(row_), column(column_){};
+    calculator(int row_, int column_);
     void setRowColumn(int row, int column){this->row = row;this->column = column;}
     bool endGetInput(int idx);
     void getInput(int idx, uint64_t addr_, uint64_t offset_);
@@ -23,18 +24,21 @@ public:
     void bufferReset(int idx);
     int getNums(int idx);
     void subNums(int idx);
-    int getUsage(){return usage;}
+    bool propagation();
+    std::vector<std::vector<int>> arrayA;
+    std::vector<std::vector<pe>> cal;
+
 protected:
     int row;
     int column;
-    int inputCal = 0;
-    int filterCal = 0;
+    int idx = 0;
     int usage = 0;
+    std::vector<int> resIdx;
+    std::vector<std::vector<int>> arrayR;
     buffer inputBuffer; // idx = 1
     buffer filterBuffer; // idx = 2
     buffer outputBuffer; // idx = 3
 };
-
 
 
 #endif //DRAMSIM3_CALCULATOR_H

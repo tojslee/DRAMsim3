@@ -39,6 +39,36 @@ int CPU::freeUnit(){
     return -1;
 }
 
+void CPU::fixA(std::vector<std::vector<int>> v){
+    systolic_array.arrayA.clear();
+    for(int i=0;i<row_;i++){
+        std::vector<int> temp;
+        for(int j=0;j<i;j++){
+            temp.push_back(0);
+        }
+        for(int j=0;j<row_;j++){
+            temp.push_back(v[j][i]);
+        }
+        for(int j=0;j<row_-i-1;j++){
+            temp.push_back(0);
+        }
+        systolic_array.arrayA.push_back(temp);
+    }
+}
+
+void CPU::fixWeight(std::vector<std::vector<int>> v){
+    systolic_array.cal.clear();
+    for(int i=0;i<row_;i++){
+        std::vector<pe> temp;
+        for(int j=0;j<row_;j++){
+            pe one;
+            one.bReg = v[i][j];
+            temp.push_back(one);
+        }
+        systolic_array.cal.push_back(temp);
+    }
+}
+
 bool StreamCPU::ClockTick() {
     // stream-add, read 2 arrays, add them up to the third array
     // this is a very simple approximate but should be able to produce
@@ -54,6 +84,7 @@ bool StreamCPU::ClockTick() {
         offset_b_ = 0;
         offset_c_ = 0;
     }
+
 
     int idx = freeUnit();
     if(!inserted_a_ &&
@@ -71,29 +102,11 @@ bool StreamCPU::ClockTick() {
         inserted_a_ = true;
     }
 
-    idx = freeUnit();
-    if(!inserted_b_ &&
-        !systolic_array.endGetInput(2)){
-        if(memory_system_.WillAcceptTransaction(addr_b_ + offset_b_, false)){
-            memory_system_.AddTransaction(addr_b_ + offset_b_, false);
-            systolic_array.getInput(2, addr_b_, offset_b_);
-            allUnits[idx].occupied = true;
-            allUnits[idx].addr = addr_b_ + offset_b_;
-            offset_b_ += stride_;
-        }
-    }
-    else{
-        if(inserted_a_ && !inserted_b_){counter_++;}
-        inserted_b_ = true;
-    }
-
-
+    // finishing all reading
     auto iter = readCallBacks.begin();
     std::vector<uint64_t> temp = systolic_array.getAddr(1);
-    std::vector<uint64_t> temp2 = systolic_array.getAddr(2);
     while(iter != readCallBacks.end()){
         auto iterator = temp.begin();
-        auto iterator1 = temp2.begin();
         while(iterator != temp.end()){
             if(*iterator == *iter){
                 temp.erase(iterator);
@@ -102,25 +115,18 @@ bool StreamCPU::ClockTick() {
             }
             else{iterator++;}
         }
-        while(iterator1 != temp2.end()){
-            if(*iterator1 == *iter){
-                temp2.erase(iterator1);
-                systolic_array.addBuffer(2);
-                readCallBacks.erase(iter);
-            }
-            else{iterator1++;}
-        }
     }
     systolic_array.setAddr(1, temp);
-    systolic_array.setAddr(2, temp2);
 
 
-    if(systolic_array.fullBuffer(1) && systolic_array.fullBuffer(2) && !endCal){
+    if(systolic_array.fullBuffer(1) && !endprop){
         // calculate matrix mul
         endCal = systolic_array.matrixMultiple();
+        endprop = systolic_array.propagation();
+        std::cout<<std::endl;
     }
 
-    if(endCal && !inserted_c_){
+    if(endprop && !inserted_c_){
         // write
         // offset, buffer num = 0, ..initialization
         while(systolic_array.getNums(3) != 0){
@@ -142,109 +148,29 @@ bool StreamCPU::ClockTick() {
 
     if(writeCallBacks.size() == row_ * col_){writeCallBacks.clear();}
 
-    /*
-    int idx = freeUnit();
-    if (!inserted_a_ && idx != -1 &&
-        memory_system_.WillAcceptTransaction(addr_a_ + offset_, false)) {
-        memory_system_.AddTransaction(addr_a_ + offset_, false);
-        inserted_a_ = true;
-        allUnits[idx].occupied = true;
-        allUnits[idx].addr = addr_a_ + offset_;
-    }
-
-    idx = freeUnit();
-    if (!inserted_b_ && idx != -1 &&
-        memory_system_.WillAcceptTransaction(addr_b_ + offset_, false)) {
-        memory_system_.AddTransaction(addr_b_ + offset_, false);
-        inserted_b_ = true;
-        allUnits[idx].occupied = true;
-        allUnits[idx].addr = addr_b_ + offset_;
-    }
-
-    auto iter = readCallBacks.begin();
-    while(iter != readCallBacks.end()){
-        if(*iter == addr_a_ + offset_){
-            memory_system_.SetBuffer(addr_a_ + offset_, false, 1);
-            readCallBacks.erase(iter);
-        }
-        else if(*iter == addr_b_ + offset_){
-            memory_system_.SetBuffer(addr_b_ + offset_, false, 2);
-            readCallBacks.erase(iter);
-        }
-        else{iter++;}
-    }
-
-    // adder, multiplier
-    if(memory_system_.getisIn(1) && add_.getCounter() == 0){
-        // can add in 1 cycle
-        // adder class isWorking true
-        add_.setWorking();
-        add_.addCounter();
-    }
-    else if(memory_system_.getisIn(1) && add_.getCounter() < add_.getCycles()){add_.addCounter();}
-
-    if(memory_system_.getisIn(2) && multiple_.getCounter() == 0 && add_.getCounter() == add_.getCycles()){
-        // can multiply in 8 cycle
-        // multiplier class isWorking true
-        multiple_.addCounter();
-    }
-    else if(memory_system_.getisIn(2) && add_.getCounter() == add_.getCycles() && multiple_.getCounter() < multiple_.getCycles()){multiple_.addCounter();}
-
-    // write in buffer if all adder, multiplier done
-    if(multiple_.getCounter() == multiple_.getCycles() && add_.getCounter() == add_.getCycles()){
-        memory_system_.SetBuffer(addr_c_ + offset_, true, 3);
-    }
-
-    // if there is data ready in the buffer
-    if (!inserted_c_ && memory_system_.getisIn(3) &&
-        memory_system_.WillAcceptTransaction(addr_c_ + offset_, true)) {
-        memory_system_.AddTransaction(addr_c_ + offset_, true);
-        inserted_c_ = true;
-        memory_system_.ResetBuffer(3);
-    }
-
-    iter = writeCallBacks.begin();
-    while(iter != writeCallBacks.end()){
-        if(memory_system_.getisIn(3) && *iter == memory_system_.getAddr(3)){
-            writeCallBacks.erase(iter);
-            memory_system_.ResetBuffer(3);
-        }
-        else{iter++;}
-    }
-    std::cout<<clk_<<" "<<add_.getCounter()<<" "<<multiple_.getCounter()<<" "<<offset_<<std::endl;
-*/
     // moving on to next element
-    if (inserted_a_ && inserted_b_ && inserted_c_ && readCallBacks.empty() && writeCallBacks.empty() && writeStart_) {
+    if (inserted_a_ && inserted_c_ && readCallBacks.empty() && writeCallBacks.empty() && writeStart_) {
         //offset_ += stride_;
         writeStart_ = false;
         inserted_a_ = false;
-        inserted_b_ = false;
         inserted_c_ = false;
-        if(16/col_ > counter_){
+        /*if(16/col_ > counter_){
             offset_a_ -= row_ * stride_;
-            offset_b_ -= row_ * stride_;
         }
-        else{counter_ = 0;}
+        else{counter_ = 0;}*/
         endCal = false;
+        endprop = false;
         systolic_array.bufferReset(1);
-        systolic_array.bufferReset(2);
-        //memory_system_.ResetBuffer(1);
-        //memory_system_.ResetBuffer(2);
-        //add_.resetWorking();
-        //multiple_.resetWorking();
-        //add_.resetCounter();
-        //multiple_.resetCounter();
         if(offset_a_ >= array_size_){
-            int res = systolic_array.getUsage();
+            /*int res = systolic_array.getUsage();
             double sys = (double)res / (double)clk_;
-            printf("%f", sys*100);
+            printf("%f", sys*100);*/
             return true;
         }
     }
     else{
         stall_counter_++;
     }
-    //std::cout<<clk_<<std::endl;
     clk_++;
 
 

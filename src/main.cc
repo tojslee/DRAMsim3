@@ -27,7 +27,7 @@ int main(int argc, const char **argv) {
         {'t', "trace"});
     args::ValueFlag<std::int32_t> unit_arg(
             parser, "unit_", "LD, ST unit",
-            {'u', "unit"}, 2
+            {'u', "unit"}, 100
             );
     args::ValueFlag<std::int32_t> row_arg(
             parser, "row_", "Systolic array row num",
@@ -66,11 +66,35 @@ int main(int argc, const char **argv) {
     std::int32_t column_ = args::get(column_arg);
 
     CPU *cpu;
+    int elements = row_;
     if (!trace_file.empty()) {
         cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_, row_, column_);
     } else {
         if (stream_type == "stream" || stream_type == "s") {
             cpu = new StreamCPU(config_file, output_dir, units_, row_, column_);
+            std::vector<std::vector<int>> arrayA;
+            for(int i=0;i < elements;i++){
+                int x;
+                std::vector<int> tempo;
+                for(int j=0;j<elements;j++){
+                    std::cin>>x;
+                    tempo.push_back(x);
+                }
+                arrayA.push_back(tempo);
+            }
+            std::vector<std::vector<int>> arrayB;
+            for(int i=0;i < elements;i++){
+                int x;
+                std::vector<int> tempo;
+                for(int j=0;j<elements;j++){
+                    std::cin>>x;
+                    tempo.push_back(x);
+                }
+                arrayB.push_back(tempo);
+            }
+            cpu->fixWeight(arrayB);
+            cpu->fixA(arrayA);
+            //std::cout<<std::endl;
         } else {
             cpu = new RandomCPU(config_file, output_dir, units_, row_, column_);
         }

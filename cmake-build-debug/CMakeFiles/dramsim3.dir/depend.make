@@ -14,6 +14,7 @@ CMakeFiles/dramsim3.dir/src/buffer.cpp.o: ../src/buffer.h
 CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/buffer.h
 CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/calculator.cpp
 CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/calculator.h
+CMakeFiles/dramsim3.dir/src/calculator.cpp.o: ../src/pe.h
 
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o: ../src/bankstate.h
@@ -120,6 +121,9 @@ CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/unit.h
 
 CMakeFiles/dramsim3.dir/src/multiplier.cpp.o: ../src/multiplier.cpp
 CMakeFiles/dramsim3.dir/src/multiplier.cpp.o: ../src/multiplier.h
+
+CMakeFiles/dramsim3.dir/src/pe.cpp.o: ../src/pe.cpp
+CMakeFiles/dramsim3.dir/src/pe.cpp.o: ../src/pe.h
 
 CMakeFiles/dramsim3.dir/src/refresh.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/refresh.cc.o: ../src/bankstate.h

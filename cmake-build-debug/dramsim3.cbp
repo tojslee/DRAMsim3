@@ -283,6 +283,12 @@
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h">
 			<Option target="dramsim3"/>
 		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/pe.cpp">
+			<Option target="dramsim3"/>
+		</Unit>
+		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h">
+			<Option target="dramsim3"/>
+		</Unit>
 		<Unit filename="/Users/jisoo/CLionProjects/revDRAMsim3/src/refresh.cc">
 			<Option target="dramsim3"/>
 		</Unit>

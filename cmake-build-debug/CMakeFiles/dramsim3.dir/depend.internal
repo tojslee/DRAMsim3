@@ -15,6 +15,7 @@ CMakeFiles/dramsim3.dir/src/calculator.cpp.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.cpp
  /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 CMakeFiles/dramsim3.dir/src/channel_state.cc.o
  ../ext/headers/INIReader.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h
@@ -121,6 +122,9 @@ CMakeFiles/dramsim3.dir/src/memory_system.cc.o
 CMakeFiles/dramsim3.dir/src/multiplier.cpp.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.cpp
  /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h
+CMakeFiles/dramsim3.dir/src/pe.cpp.o
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/pe.cpp
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 CMakeFiles/dramsim3.dir/src/refresh.cc.o
  ../ext/headers/INIReader.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/bankstate.h

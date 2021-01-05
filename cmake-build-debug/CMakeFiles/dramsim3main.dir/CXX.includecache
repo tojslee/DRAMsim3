@@ -347,6 +347,8 @@ vector
 -
 buffer.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
+pe.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/channel_state.h
 vector
@@ -429,6 +431,8 @@ random
 -
 string
 -
+pe.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 memory_system.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/memory_system.h
 unit.h
@@ -483,6 +487,8 @@ hmc.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/hmc.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h
+
+/Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/refresh.h
 vector

@@ -554,6 +554,33 @@ src/multiplier.cpp.s:
 	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/multiplier.cpp.s
 .PHONY : src/multiplier.cpp.s
 
+src/pe.o: src/pe.cpp.o
+
+.PHONY : src/pe.o
+
+# target to build an object file
+src/pe.cpp.o:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/pe.cpp.o
+.PHONY : src/pe.cpp.o
+
+src/pe.i: src/pe.cpp.i
+
+.PHONY : src/pe.i
+
+# target to preprocess a source file
+src/pe.cpp.i:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/pe.cpp.i
+.PHONY : src/pe.cpp.i
+
+src/pe.s: src/pe.cpp.s
+
+.PHONY : src/pe.s
+
+# target to generate assembly for a file
+src/pe.cpp.s:
+	$(MAKE) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/pe.cpp.s
+.PHONY : src/pe.cpp.s
+
 src/refresh.o: src/refresh.cc.o
 
 .PHONY : src/refresh.o
@@ -799,6 +826,9 @@ help:
 	@echo "... src/multiplier.o"
 	@echo "... src/multiplier.i"
 	@echo "... src/multiplier.s"
+	@echo "... src/pe.o"
+	@echo "... src/pe.i"
+	@echo "... src/pe.s"
 	@echo "... src/refresh.o"
 	@echo "... src/refresh.i"
 	@echo "... src/refresh.s"
