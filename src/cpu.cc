@@ -41,32 +41,11 @@ int CPU::freeUnit(){
 
 void CPU::fixA(std::vector<std::vector<int>> v){
     systolic_array.arrayA.clear();
-    for(int i=0;i<row_;i++){
-        std::vector<int> temp;
-        for(int j=0;j<i;j++){
-            temp.push_back(0);
-        }
-        for(int j=0;j<row_;j++){
-            temp.push_back(v[j][i]);
-        }
-        for(int j=0;j<row_-i-1;j++){
-            temp.push_back(0);
-        }
-        systolic_array.arrayA.push_back(temp);
-    }
+    systolic_array.arrayA.assign(v.begin(), v.end());
 }
 
 void CPU::fixWeight(std::vector<std::vector<int>> v){
-    systolic_array.cal.clear();
-    for(int i=0;i<row_;i++){
-        std::vector<pe> temp;
-        for(int j=0;j<row_;j++){
-            pe one;
-            one.bReg = v[i][j];
-            temp.push_back(one);
-        }
-        systolic_array.cal.push_back(temp);
-    }
+    systolic_array.firstPE->fixWeight(v, systolic_array.firstPE);
 }
 
 bool StreamCPU::ClockTick() {
@@ -123,7 +102,6 @@ bool StreamCPU::ClockTick() {
         // calculate matrix mul
         endCal = systolic_array.matrixMultiple();
         endprop = systolic_array.propagation();
-        std::cout<<std::endl;
     }
 
     if(endprop && !inserted_c_){
@@ -134,7 +112,6 @@ bool StreamCPU::ClockTick() {
                 memory_system_.AddTransaction(addr_c_ + offset_c_, true);
                 systolic_array.subNums(3);
                 offset_c_ += stride_;
-                //std::cout<<systolic_array.getNums(3)<<" ";
             }
             else{
                 break;

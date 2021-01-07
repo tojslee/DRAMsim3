@@ -25,6 +25,8 @@ public:
     int getNums(int idx);
     void subNums(int idx);
     bool propagation();
+    pe *firstPE;
+    std::vector<pe *> firstColumn;
     std::vector<std::vector<int>> arrayA;
     std::vector<std::vector<pe>> cal;
 
@@ -35,6 +37,7 @@ protected:
     int usage = 0;
     std::vector<int> resIdx;
     std::vector<std::vector<int>> arrayR;
+    std::vector<int> aIdx;
     buffer inputBuffer; // idx = 1
     buffer filterBuffer; // idx = 2
     buffer outputBuffer; // idx = 3

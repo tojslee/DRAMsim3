@@ -16,6 +16,35 @@ calculator::calculator(int row_, int column_){
         arrayR.push_back(v);
         resIdx.push_back(0);
     }
+    firstPE = new pe();
+    firstColumn.push_back(firstPE);
+    pe *iterator = firstPE;
+    pe *upiter = firstPE;
+    for(int i=0;i<row-1;i++){
+        iterator->rightPE = new pe();
+        iterator = iterator->rightPE;
+    }
+    iterator = firstPE;
+    for(int i=0;i<row-1;i++){
+        iterator->downPE = new pe();
+        upiter = iterator;
+        iterator = iterator->downPE;
+        firstColumn.push_back(iterator);
+        pe *rightiter = iterator;
+        upiter = upiter->rightPE;
+        for(int j=0;j<row-1;j++){
+            rightiter->rightPE = new pe();
+            rightiter = rightiter->rightPE;
+            upiter->downPE = rightiter;
+            upiter = upiter->rightPE;
+        }
+    }
+
+    int temp = 0;
+    for(int i=0;i<row;i++){
+        aIdx.push_back(temp);
+        temp -= 1;
+    }
 }
 
 bool calculator::endGetInput(int idx) {
@@ -83,91 +112,66 @@ bool calculator::fullBuffer(int idx) {
 }
 
 bool calculator::matrixMultiple(){ // real calculation
-    for(int i=0;i<row;i++){
-        for(int j=0;j<row;j++){
-            if(cal[i][j].isValue){
-                int aReg = cal[i][j].aReg;
-                int bReg = cal[i][j].bReg;
-                int psumReg = cal[i][j].psumReg;
-                cal[i][j].psumReg = aReg*bReg + psumReg;
-            }
+    for(auto iter = firstColumn.begin();iter != firstColumn.end();iter++){
+        pe *iterator = *iter;
+        while(iterator != NULL){
+            iterator->matrixMultiple();
+            iterator = iterator->rightPE;
         }
     }
     return true;
 }
 
 bool calculator::propagation(){ // propagate value to next pe
-    for(int i=row-1;i>=0;i--){
-        for(int j=row-1;j>=0;j--){
-            if(j!=row-1){ // except last column pe
-                cal[i][j+1].aReg = cal[i][j].aReg; // propagate a array
-            }
-
-            if(i!=0 && i!=row-1){
-                cal[i][j].psumReg = cal[i-1][j].psumReg;
-            }
-            else if(i==row-1){
-                if(cal[i][j].isValue){
-                    if(resIdx[j] < row){
-                        arrayR[resIdx[j]][j] = cal[i][j].psumReg;
-                        resIdx[j]++;
-                    }
-                }
-                cal[i][j].psumReg = cal[i-1][j].psumReg;
-            }
-
-            if(i!=0){
-                if(j!=0 && cal[i][j-1].isValue){
-                    if(cal[i-1][j].isValue){
-                        cal[i][j].isValue = true;
-                    }
-                }
-            }
-            else{
-                if(j!=0 && cal[i][j-1].isValue){
-                    cal[i][j].isValue = true;
-                }
+    // get result from the PE array
+    pe *iterator = firstColumn[firstColumn.size()-1];
+    int idx = 0;
+    while(iterator != NULL){
+        if(iterator->isValue){
+            // is real value
+            if(resIdx[idx] < row){
+                arrayR[resIdx[idx]][idx] = iterator->psumReg;
+                resIdx[idx]++;
             }
         }
+        iterator = iterator->rightPE;
+        idx += 1;
     }
-    if(idx < row+column){
-        for(int i=0;i<row;i++){
-            cal[i][0].aReg = arrayA[i][idx];
-        }
-    }
-    if(idx<row){cal[idx][0].isValue = true;}
-    for(int i=0;i<row;i++){
-        cal[0][i].psumReg = 0;
-    }
-    idx++;
 
+    // push new array of A to PE array
+    iterator = firstPE;
     for(int i=0;i<row;i++){
-        for(int j=0;j<row;j++){
-            std::cout<<cal[i][j].aReg<<" "<<cal[i][j].bReg<<" "<<cal[i][j].psumReg<<" "<<cal[i][j].isValue<<std::endl;
+        if(aIdx[i] < 0){
+            iterator->leftPE = std::make_pair(0, false);
+        }
+        else if(aIdx[i] >= row){
+            iterator->leftPE = std::make_pair(0, true);
+        }
+        else{
+            iterator->leftPE = std::make_pair(arrayA[aIdx[i]][i], true);
+        }
+        aIdx[i]++;
+        iterator = iterator->downPE;
+    }
+
+    // inside propagation of psum & array A
+    firstPE->propagation(firstColumn, 0);
+
+    // all calculated
+    for(auto iter = resIdx.begin();iter != resIdx.end();iter++){
+        if(*iter < row){
+            return false;
         }
     }
-    std::cout<<std::endl;
-    for(int i=0;i<row;i++){
-        for(int j=0;j<row;j++){
-            std::cout<<arrayR[i][j]<<" ";
+    for(auto iter = arrayR.begin();iter != arrayR.end();iter++){
+        std::vector<int> eachline = *iter;
+        for(auto iter2 = eachline.begin(); iter2 != eachline.end();iter2++){
+            std::cout<< *iter2<<" ";
         }
         std::cout<<std::endl;
     }
-
-    for(int i=0;i<row;i++){
-        std::cout<<resIdx[i];
-    }
-    std::cout<<std::endl;
-
-    if(idx >= row+column-1){
-        bool flag = false;
-        for(int i=0;i<row;i++){
-            if(resIdx[i] != row){return false;}
-        }
-        outputBuffer.nums = row*column;
-        return true;
-    }
-    return false;
+    outputBuffer.nums = row*column;
+    return true;
 }
 
 void calculator::bufferReset(int idx){

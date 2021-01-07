@@ -10,6 +10,7 @@
 class buffer {
 public:
     std::vector<std::uint64_t> waitAddr;
+    std::vector<int> values;
     int nums = 0;
     bool isIn = false;
     bool getisIn(){return isIn;}
