@@ -76,7 +76,7 @@ class StreamCPU : public CPU {
     bool inserted_a_ = false;
     bool inserted_b_ = false;
     bool inserted_c_ = false;
-    uint64_t array_size_ = row_ * col_;  // elements in array
+    uint64_t array_size_ = 16;  // elements in array
     const int stride_ = 1;                // stride in bytes
     const int elements_ = 4;
     int arrayCounter_ = 0;

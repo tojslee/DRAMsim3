@@ -49,13 +49,13 @@ calculator::calculator(int row_, int column_){
 
 bool calculator::endGetInput(int idx) {
     if(idx == 1){
-        return row == inputBuffer.nums + inputBuffer.waitAddr.size();
+        return row*column == inputBuffer.nums + inputBuffer.waitAddr.size();
     }
     else if(idx == 2){
-        return row == filterBuffer.nums + filterBuffer.waitAddr.size();
+        return row*column == filterBuffer.nums + filterBuffer.waitAddr.size();
     }
     else{
-        return row == outputBuffer.nums + outputBuffer.waitAddr.size();
+        return row*column == outputBuffer.nums + outputBuffer.waitAddr.size();
     }
 }
 
