@@ -3,6 +3,8 @@
 
 #include <functional>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "configuration.h"
 #include "dram_system.h"
@@ -15,7 +17,7 @@ class MemorySystem {
    public:
     MemorySystem(const std::string &config_file, const std::string &output_dir,
                  std::function<void(uint64_t)> read_callback,
-                 std::function<void(uint64_t)> write_callback);
+                 std::function<void(uint64_t)> write_callback, int row, int array);
     ~MemorySystem();
     void ClockTick();
     void RegisterCallbacks(std::function<void(uint64_t)> read_callback,
@@ -35,6 +37,9 @@ class MemorySystem {
     bool ResetBuffer(int flag);
     bool getisIn(int flag);
     uint64_t getAddr(int flag);
+    void printBuff();
+    std::vector<std::vector<int>> getBuffer(std::pair<int, int> index);
+    void newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index);
 
    private:
     // These have to be pointers because Gem5 will try to push this object

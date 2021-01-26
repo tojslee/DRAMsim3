@@ -4,15 +4,15 @@ namespace dramsim3 {
 MemorySystem::MemorySystem(const std::string &config_file,
                            const std::string &output_dir,
                            std::function<void(uint64_t)> read_callback,
-                           std::function<void(uint64_t)> write_callback)
+                           std::function<void(uint64_t)> write_callback, int row, int array)
     : config_(new Config(config_file, output_dir)) {
     // TODO: ideal memory type?
     if (config_->IsHMC()) {
         dram_system_ = new HMCMemorySystem(*config_, output_dir, read_callback,
-                                           write_callback);
+                                           write_callback, row, array);
     } else {
         dram_system_ = new JedecDRAMSystem(*config_, output_dir, read_callback,
-                                           write_callback);
+                                           write_callback, row, array);
     }
 }
 
@@ -37,6 +37,14 @@ void MemorySystem::RegisterCallbacks(
     dram_system_->RegisterCallbacks(read_callback, write_callback);
 }
 
+std::vector<std::vector<int>> MemorySystem::getBuffer(std::pair<int, int> index){
+    return dram_system_->getBuffer(index);
+}
+
+void MemorySystem::newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index){
+    dram_system_->newBuffer(r, index);
+}
+
 bool MemorySystem::WillAcceptTransaction(uint64_t hex_addr,
                                          bool is_write) const {
     return dram_system_->WillAcceptTransaction(hex_addr, is_write);
@@ -44,6 +52,10 @@ bool MemorySystem::WillAcceptTransaction(uint64_t hex_addr,
 
 bool MemorySystem::AddTransaction(uint64_t hex_addr, bool is_write) {
     return dram_system_->AddTransaction(hex_addr, is_write);
+}
+
+void MemorySystem::printBuff(){
+    dram_system_->printBuff();
 }
 
 bool MemorySystem::SetBuffer(uint64_t hex_addr, bool is_write, int flag){
@@ -68,8 +80,8 @@ void MemorySystem::ResetStats() { dram_system_->ResetStats(); }
 
 MemorySystem* GetMemorySystem(const std::string &config_file, const std::string &output_dir,
                  std::function<void(uint64_t)> read_callback,
-                 std::function<void(uint64_t)> write_callback) {
-    return new MemorySystem(config_file, output_dir, read_callback, write_callback);
+                 std::function<void(uint64_t)> write_callback, int row, int array) {
+    return new MemorySystem(config_file, output_dir, read_callback, write_callback, row, array);
 }
 }  // namespace dramsim3
 

@@ -134,7 +134,8 @@ void Controller::ClockTick() {
     for (int i = 0; i < config_.ranks; i++) {
         if (channel_state_.IsRankSelfRefreshing(i)) {
             simple_stats_.IncrementVec("sref_cycles", i);
-        } else {
+        }
+        /*else {
             bool all_idle = channel_state_.IsAllBankIdleInRank(i);
             if (all_idle) {
                 simple_stats_.IncrementVec("all_bank_idle_cycles", i);
@@ -144,7 +145,7 @@ void Controller::ClockTick() {
                 // reset
                 channel_state_.rank_idle_cycles[i] = 0;
             }
-        }
+        }*/
     }
 
     // power updates pt 2: move idle ranks into self-refresh mode to save power
@@ -188,7 +189,7 @@ void Controller::ClockTick() {
 
 bool Controller::WillAcceptTransaction(uint64_t hex_addr, bool is_write) {
     if (is_unified_queue_) {
-        if(!is_write){ stall_counter_++; return false; }
+        //if(!is_write){ stall_counter_++; return false; }
         return unified_queue_.size() < unified_queue_.capacity();
     } else if (!is_write) {
         //if(freeUnit() == -1){ stall_counter_++; return false; }

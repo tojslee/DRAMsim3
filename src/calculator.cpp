@@ -4,15 +4,18 @@
 
 #include "calculator.h"
 #include <iostream>
+#include <cmath>
 
-calculator::calculator(int row_, int column_){
+calculator::calculator(int row_, int column_, int array_, int array_height){
     row = row_;
     column = column_;
-    for(int i=0;i<row;i++){
+    array_length = array_;
+    this->array_height = array_height;
+    for(int i=0;i<array_;i++){
         std::vector<int> v;
-        for(int j=0;j<row;j++){
-            v.push_back(0);
-        }
+        //for(int j=0;j<array_;j++){
+        //    v.push_back(0);
+        //}
         arrayR.push_back(v);
         resIdx.push_back(0);
     }
@@ -40,22 +43,31 @@ calculator::calculator(int row_, int column_){
         }
     }
 
-    int temp = 0;
-    for(int i=0;i<row;i++){
-        aIdx.push_back(temp);
-        temp -= 1;
+    if(ceil(this->array_height/row) == 0){
+        int temp = 0;
+        for(int i=0;i<row_;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
+    }
+    for(int j=0;j<ceil(this->array_height/this->row);j++){
+        int temp = 0;
+        for(int i=0;i<row_;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
     }
 }
 
 bool calculator::endGetInput(int idx) {
     if(idx == 1){
-        return row*column == inputBuffer.nums + inputBuffer.waitAddr.size();
+        return array_length*array_length == inputBuffer.nums + inputBuffer.waitAddr.size();
     }
     else if(idx == 2){
-        return row*column == filterBuffer.nums + filterBuffer.waitAddr.size();
+        return array_length*array_length == filterBuffer.nums + filterBuffer.waitAddr.size();
     }
     else{
-        return row*column == outputBuffer.nums + outputBuffer.waitAddr.size();
+        return array_length*array_length == outputBuffer.nums + outputBuffer.waitAddr.size();
     }
 }
 
@@ -122,47 +134,69 @@ bool calculator::matrixMultiple(){ // real calculation
     return true;
 }
 
-bool calculator::propagation(){ // propagate value to next pe
+bool calculator::propagation(std::pair<int, int> index){ // propagate value to next pe
     // get result from the PE array
     pe *iterator = firstColumn[firstColumn.size()-1];
     int idx = 0;
     while(iterator != NULL){
         if(iterator->isValue){
             // is real value
-            if(resIdx[idx] < row){
-                arrayR[resIdx[idx]][idx] = iterator->psumReg;
+            if(resIdx[idx] < array_length){
+                if(arrayR[idx].size() == array_length){
+                    int tem = arrayR[idx][0];
+                    arrayR[idx].erase(arrayR[idx].begin());
+                    arrayR[idx].push_back(tem + iterator->psumReg);
+                }
+                else{
+                    arrayR[idx].push_back(iterator->psumReg);
+                }
                 resIdx[idx]++;
             }
         }
         iterator = iterator->rightPE;
         idx += 1;
+        if(idx == col_usage){break;}
     }
 
     // push new array of A to PE array
     iterator = firstPE;
     for(int i=0;i<row;i++){
-        if(aIdx[i] < 0){
+        if(aIdx[i+index.first*4] < 0){
             iterator->leftPE = std::make_pair(0, false);
         }
-        else if(aIdx[i] >= row){
+        else if(aIdx[i+index.first*4] >= arrayA.size()){
             iterator->leftPE = std::make_pair(0, true);
         }
         else{
-            iterator->leftPE = std::make_pair(arrayA[aIdx[i]][i], true);
+            if(aIdx[i+index.first*4] < arrayA.size() && arrayA[0].size() > i+index.first*4){
+                iterator->leftPE = std::make_pair(arrayA[aIdx[i+index.first*4]][i+index.first*4], true);
+            }
         }
-        aIdx[i]++;
+        aIdx[i+index.first*4]++;
         iterator = iterator->downPE;
     }
 
     // inside propagation of psum & array A
     firstPE->propagation(firstColumn, 0);
 
+    for(auto iter = firstColumn.begin();iter != firstColumn.end();iter++){
+        auto temp = *iter;
+        if(temp->upPE.second){
+            temp->isValue = true;
+        }
+        while(temp != NULL){
+            std::cout<<temp->aReg<<" "<<temp->bReg<<" "<<temp->psumReg<<" "<<temp->isValue<<std::endl;
+            temp = temp->rightPE;
+        }
+    }
+    std::cout<<std::endl;
     // all calculated
-    for(auto iter = resIdx.begin();iter != resIdx.end();iter++){
-        if(*iter < row){
+    for(int i=0;i<col_usage;i++){
+        if(resIdx[i] < array_length){
             return false;
         }
     }
+
     for(auto iter = arrayR.begin();iter != arrayR.end();iter++){
         std::vector<int> eachline = *iter;
         for(auto iter2 = eachline.begin(); iter2 != eachline.end();iter2++){
@@ -170,7 +204,34 @@ bool calculator::propagation(){ // propagate value to next pe
         }
         std::cout<<std::endl;
     }
-    outputBuffer.nums = row*column;
+    outputBuffer.nums = array_length * col_usage;
+    for(auto iter = firstColumn.begin();iter != firstColumn.end();iter++){
+        auto it = *iter;
+        while(it!=NULL){
+            it->isValue = false;
+            it->bReg = 0;
+            it = it->rightPE;
+        }
+    }
+    resIdx.clear();
+    for(int i=0;i<row;i++){
+        resIdx.push_back(0);
+    }
+    aIdx.clear();
+    if(ceil(array_height/row) == 0){
+        int temp = 0;
+        for(int i=0;i<row;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
+    }
+    for(int j=0;j<ceil(array_height/row);j++){
+        int temp = 0;
+        for(int i=0;i<row;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
+    }
     return true;
 }
 
@@ -199,4 +260,9 @@ void calculator::subNums(int idx){
     if(idx == 1){inputBuffer.nums--;}
     else if(idx == 2){filterBuffer.nums--;}
     else{outputBuffer.nums--;}
+}
+
+void calculator::setR(std::vector<std::vector<int>> r){
+    arrayR.clear();
+    arrayR.assign(r.begin(), r.end());
 }

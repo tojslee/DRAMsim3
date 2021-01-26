@@ -5,6 +5,7 @@
 #include <functional>
 #include <random>
 #include <string>
+#include <utility>
 #include "pe.h"
 #include "memory_system.h"
 #include "unit.h"
@@ -16,12 +17,14 @@ namespace dramsim3 {
 
 class CPU {
    public:
-    CPU(const std::string& config_file, const std::string& output_dir, const std::int32_t units_, const std::int32_t row_, const std::int32_t column_)
+    CPU(const std::string& config_file, const std::string& output_dir, const std::int32_t units_, const std::int32_t row_, const std::int32_t column_, const std::int32_t array_,
+        const std::int32_t array_height, const std::int32_t brow_, const std::int32_t bcol_)
         : memory_system_(
               config_file, output_dir,
               std::bind(&CPU::ReadCallBack, this, std::placeholders::_1),
-              std::bind(&CPU::WriteCallBack, this, std::placeholders::_1)),
-          clk_(0), stall_counter_(0), units_(units_), col_(column_), row_(row_), systolic_array(row_, column_){
+              std::bind(&CPU::WriteCallBack, this, std::placeholders::_1), array_, bcol_),
+          clk_(0), stall_counter_(0), units_(units_), col_(column_), row_(row_), systolic_array(row_, column_, array_, array_height), array_length(array_),
+          array_height(array_height), bcol(bcol_), brow(brow_){
         for(int i=0;i<units_;i++){unit temp = unit(); allUnits.push_back(temp);
         }
     }
@@ -34,6 +37,7 @@ class CPU {
     int freeUnit();
     void fixWeight(std::vector<std::vector<int>> v);
     void fixA(std::vector<std::vector<int>> v);
+    void fixB(std::vector<std::vector<int>> v);
 
    protected:
     MemorySystem memory_system_;
@@ -50,6 +54,10 @@ class CPU {
     int row_;
     int elements_ = 4;
     bool writeStart_ = false;
+    int array_length;
+    int array_height;
+    int bcol;
+    int brow;
 };
 
 class RandomCPU : public CPU {
@@ -69,6 +77,7 @@ class StreamCPU : public CPU {
     using CPU::CPU;
     bool ClockTick() override;
     int getElementNum(){return elements_;}
+    bool lastIdx();
 
    private:
     uint64_t addr_a_, addr_b_, addr_c_, offset_a_, offset_b_, offset_c_ = 0;
@@ -76,19 +85,21 @@ class StreamCPU : public CPU {
     bool inserted_a_ = false;
     bool inserted_b_ = false;
     bool inserted_c_ = false;
-    uint64_t array_size_ = 16;  // elements in array
+    uint64_t array_size_ = array_length * array_length;  // elements in array
     const int stride_ = 1;                // stride in bytes
     const int elements_ = 4;
     int arrayCounter_ = 0;
     int counter_ = 0;
     bool endCal = false;
     bool endprop = false;
+    std::pair<int, int> index = std::make_pair(0, 0);
 };
 
 class TraceBasedCPU : public CPU {
    public:
     TraceBasedCPU(const std::string& config_file, const std::string& output_dir,
-                  const std::string& trace_file, const::int32_t units_, const std::int32_t row_, const std::int32_t column_);
+                  const std::string& trace_file, const::int32_t units_, const std::int32_t row_, const std::int32_t column_, const std::int32_t array_,
+                  const std::int32_t array_height, const std::int32_t brow_, const std::int32_t bcol_);
     ~TraceBasedCPU() { trace_file_.close(); }
     bool ClockTick() override;
 

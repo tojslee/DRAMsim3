@@ -17,11 +17,15 @@ calculator.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
 iostream
 -
+cmath
+-
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
 iostream
 -
 vector
+-
+utility
 -
 buffer.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h

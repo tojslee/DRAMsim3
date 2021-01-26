@@ -7,12 +7,25 @@
 #include <vector>
 
 void pe::fixWeight(std::vector<std::vector<int> > v, pe *firstCol) {
+    if(v.size() == 0 || v[0].size() == 0){
+        //std::cout<<std::endl;
+        if(firstCol->downPE != NULL){
+            v.erase(v.begin());
+            firstCol->downPE->fixWeight(v, firstCol->downPE);
+            return;
+        }
+        else{
+            return;
+        }
+    }
     this->bReg = v[0][0];
+    //std::cout<<this->bReg<<" ";
     if(this->rightPE != NULL){
         v[0].erase(v[0].begin());
         this->rightPE->fixWeight(v, firstCol);
     }
     else{
+        //std::cout<<std::endl;
         if(firstCol->downPE != NULL){
             v.erase(v.begin());
             firstCol->downPE->fixWeight(v, firstCol->downPE);

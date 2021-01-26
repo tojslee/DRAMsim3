@@ -10,12 +10,14 @@ int BaseDRAMSystem::total_channels_ = 0;
 
 BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
                                std::function<void(uint64_t)> read_callback,
-                               std::function<void(uint64_t)> write_callback)
+                               std::function<void(uint64_t)> write_callback, int row, int array)
     : read_callback_(read_callback),
       write_callback_(write_callback),
       last_req_clk_(0),
       config_(config),
       timing_(config_),
+      row_(row),
+      array_size_(array),
 #ifdef THERMAL
       thermal_calc_(config_),
 #endif  // THERMAL
@@ -26,6 +28,22 @@ BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
     std::string addr_trace_name = config_.output_prefix + "addr.trace";
     address_trace_.open(addr_trace_name);
 #endif
+    for(int i=0;i<array_size_;i++){
+        std::vector<int> temp;
+        for(int j=0;j<array_size_;j++){
+            temp.push_back(0);
+        }
+        resArray.push_back(temp);
+    }
+}
+
+void BaseDRAMSystem::printBuff(){
+    for(int i=0;i<array_size_;i++){
+        for(int j=0;j<array_size_;j++){
+            std::cout<<resArray[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
 }
 
 int BaseDRAMSystem::GetChannel(uint64_t hex_addr) const {
@@ -138,10 +156,30 @@ void BaseDRAMSystem::RegisterCallbacks(
     write_callback_ = write_callback;
 }
 
+std::vector<std::vector<int>> BaseDRAMSystem::getBuffer(std::pair<int, int> index){
+    std::vector<std::vector<int>> returning;
+    for(int i=0;i<row_;i++){
+        std::vector<int> temp;
+        for(int j=0;j<array_size_;j++){
+            temp.push_back(resArray[i+row_*index.second][j]);
+        }
+        returning.push_back(temp);
+    }
+    return returning;
+}
+
+void BaseDRAMSystem::newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index){
+    for(int i=0;i<r.size();i++){
+        for(int j=0;j<r[i].size();j++){
+            resArray[i+row_*index.second][j] = r[i][j];
+        }
+    }
+}
+
 JedecDRAMSystem::JedecDRAMSystem(Config &config, const std::string &output_dir,
                                  std::function<void(uint64_t)> read_callback,
-                                 std::function<void(uint64_t)> write_callback)
-    : BaseDRAMSystem(config, output_dir, read_callback, write_callback) {
+                                 std::function<void(uint64_t)> write_callback, int row, int array)
+    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array) {
     if (config_.IsHMC()) {
         std::cerr << "Initialized a memory system with an HMC config file!"
                   << std::endl;
@@ -216,8 +254,8 @@ void JedecDRAMSystem::ClockTick() {
 
 IdealDRAMSystem::IdealDRAMSystem(Config &config, const std::string &output_dir,
                                  std::function<void(uint64_t)> read_callback,
-                                 std::function<void(uint64_t)> write_callback)
-    : BaseDRAMSystem(config, output_dir, read_callback, write_callback),
+                                 std::function<void(uint64_t)> write_callback, int row, int array)
+    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array),
       latency_(config_.ideal_memory_latency) {}
 
 IdealDRAMSystem::~IdealDRAMSystem() {}

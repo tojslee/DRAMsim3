@@ -44,8 +44,23 @@ void CPU::fixA(std::vector<std::vector<int>> v){
     systolic_array.arrayA.assign(v.begin(), v.end());
 }
 
+void CPU::fixB(std::vector<std::vector<int>> v){
+    systolic_array.arrayB.clear();
+    systolic_array.arrayB.assign(v.begin(), v.end());
+}
+
 void CPU::fixWeight(std::vector<std::vector<int>> v){
+    if(v.size() < 1){
+        systolic_array.setUsage(0, 0);
+    }
+    else{
+        systolic_array.setUsage(v.size(), v[0].size());
+    }
     systolic_array.firstPE->fixWeight(v, systolic_array.firstPE);
+}
+
+bool StreamCPU::lastIdx(){
+    return (index.first >= ceil(brow/row_) && index.second >= ceil(bcol/row_));
 }
 
 bool StreamCPU::ClockTick() {
@@ -62,6 +77,33 @@ bool StreamCPU::ClockTick() {
         offset_a_ = 0;
         offset_b_ = 0;
         offset_c_ = 0;
+        // first 4*4 fix weight
+        for(int i=0;i<brow;i++){
+            for(int j=0;j<bcol;j++){
+                std::cout<<systolic_array.arrayB[i][j]<<" ";
+            }
+            std::cout<<std::endl;
+        }
+        std::vector<std::vector<int>> v;
+        for(int i=0;i<row_;i++){
+            if(i+index.first*row_ < systolic_array.arrayB.size()){
+                std::vector<int> temp;
+                for(int j=0;j<row_;j++){
+                    if(j+index.second*row_ < bcol){
+                        temp.push_back(systolic_array.arrayB[i+index.first*row_][j+index.second*row_]);
+                    }
+                }
+                v.push_back(temp);
+            }
+        }
+        /*for(auto i = v.begin();i != v.end();i++){
+            auto it = *i;
+            for(auto j = it.begin();j != it.end();j++){
+                std::cout<<*j<<" ";
+            }
+            std::cout<<std::endl;
+        }*/
+        fixWeight(v);
     }
 
 
@@ -82,29 +124,65 @@ bool StreamCPU::ClockTick() {
     }
 
     // finishing all reading
-    auto iter = readCallBacks.begin();
-    std::vector<uint64_t> temp = systolic_array.getAddr(1);
-    while(iter != readCallBacks.end()){
-        auto iterator = temp.begin();
-        while(iterator != temp.end()){
-            if(*iterator == *iter){
-                temp.erase(iterator);
-                systolic_array.addBuffer(1);
-                readCallBacks.erase(iter);
+    if(readCallBacks.size() == array_length * array_length){
+        auto iter = readCallBacks.begin();
+        std::vector<uint64_t> temp = systolic_array.getAddr(1);
+        while(iter != readCallBacks.end()){
+            auto iterator = temp.begin();
+            while(iterator != temp.end()){
+                if(*iterator == *iter){
+                    temp.erase(iterator);
+                    systolic_array.addBuffer(1);
+                    readCallBacks.erase(iter);
+                }
+                else{iterator++;}
             }
-            else{iterator++;}
         }
     }
-    systolic_array.setAddr(1, temp);
 
 
     if(systolic_array.fullBuffer(1) && !endprop){
         // calculate matrix mul
         endCal = systolic_array.matrixMultiple();
-        endprop = systolic_array.propagation();
+        endprop = systolic_array.propagation(index);
     }
 
-    if(endprop && !inserted_c_){
+    // next 4*4 weight of B && get buffered calculated array from memory
+    if(endprop && !lastIdx()){
+        std::vector<std::vector<int>> buffering = systolic_array.getR();
+        memory_system_.newBuffer(buffering, index);
+
+        if(index.second >= ceil(bcol/row_)){
+            index.first += 1;
+            index.second = 0;
+            endprop = false;
+        }
+        else{
+            index.second += 1;
+            endprop = false;
+        }
+
+        std::vector<std::vector<int>> buffered = memory_system_.getBuffer(index);
+        systolic_array.setR(buffered);
+
+        // fix new Weight of B
+        std::vector<std::vector<int>> v;
+        for(int i=0;i<row_;i++){
+            if(i+index.first*row_ < systolic_array.arrayB.size()){
+                std::vector<int> temp;
+                for(int j=0;j<row_;j++){
+                    if(j+index.second*row_ < bcol){
+                        temp.push_back(systolic_array.arrayB[i+index.first*row_][j+index.second*row_]);
+                    }
+                }
+                v.push_back(temp);
+            }
+        }
+        fixWeight(v);
+    }
+
+
+    if(endprop && !inserted_c_ && lastIdx()){
         // write
         // offset, buffer num = 0, ..initialization
         while(systolic_array.getNums(3) != 0){
@@ -123,7 +201,7 @@ bool StreamCPU::ClockTick() {
         }
     }
 
-    if(writeCallBacks.size() == row_ * col_){writeCallBacks.clear();}
+    if(writeCallBacks.size() == array_length * bcol){writeCallBacks.clear();}
 
     // moving on to next element
     if (inserted_a_ && inserted_c_ && readCallBacks.empty() && writeCallBacks.empty() && writeStart_) {
@@ -138,6 +216,10 @@ bool StreamCPU::ClockTick() {
         endCal = false;
         endprop = false;
         systolic_array.bufferReset(1);
+        std::vector<std::vector<int>> buffering = systolic_array.getR();
+        memory_system_.newBuffer(buffering, index);
+        std::cout<<std::endl;
+        memory_system_.printBuff();
         if(offset_a_ >= array_size_){
             /*int res = systolic_array.getUsage();
             double sys = (double)res / (double)clk_;
@@ -156,8 +238,9 @@ bool StreamCPU::ClockTick() {
 
 TraceBasedCPU::TraceBasedCPU(const std::string& config_file,
                              const std::string& output_dir,
-                             const std::string& trace_file, const int32_t units_, const std::int32_t row_, const std::int32_t column_)
-    : CPU(config_file, output_dir, units_, row_, column_) {
+                             const std::string& trace_file, const int32_t units_, const std::int32_t row_, const std::int32_t column_,
+                             const std::int32_t array_, const std::int32_t array_height, const std::int32_t brow_, const std::int32_t bcol_)
+    : CPU(config_file, output_dir, units_, row_, column_, array_, array_height, brow_, bcol_) {
     trace_file_.open(trace_file);
     if (trace_file_.fail()) {
         std::cerr << "Trace file does not exist" << std::endl;

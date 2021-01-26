@@ -37,6 +37,22 @@ int main(int argc, const char **argv) {
             parser, "column_", "Systolic array column num",
             {"col", "column"}, 4
             );
+    args::ValueFlag<std::int32_t> array_length(
+            parser, "array_", "calculating A array length",
+            {'a', "array"}, 3
+            );
+    args::ValueFlag<std::int32_t> array_height(
+            parser, "array_height_", "calculating A array height",
+            {'h', "height"}, 7
+            );
+    args::ValueFlag<std::int32_t> b_row(
+            parser, "brow_", "calculating B array length",
+            {'b', "brow"}, 7
+            );
+    args::ValueFlag<std::int32_t> b_column(
+            parser, "bcol_", "calculating B array height",
+            {'l', "bcol"}, 3
+            );
     args::Positional<std::string> config_arg(
         parser, "config", "The config file name (mandatory)");
 
@@ -64,39 +80,56 @@ int main(int argc, const char **argv) {
     std::int32_t units_ = args::get(unit_arg);
     std::int32_t row_ = args::get(row_arg);
     std::int32_t column_ = args::get(column_arg);
+    std::int32_t array_ = args::get(array_length);
+    std::int32_t array_height_ = args::get(array_height);
+    std::int32_t brow_ = args::get(b_row);
+    std::int32_t bcol_ = args::get(b_column);
 
     CPU *cpu;
     int elements = row_;
     if (!trace_file.empty()) {
-        cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_, row_, column_);
+        cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_, row_, column_, array_, array_height_, brow_, bcol_);
     } else {
         if (stream_type == "stream" || stream_type == "s") {
-            cpu = new StreamCPU(config_file, output_dir, units_, row_, column_);
+            cpu = new StreamCPU(config_file, output_dir, units_, row_, column_, array_, array_height_, brow_, bcol_);
             std::vector<std::vector<int>> arrayA;
-            for(int i=0;i < elements;i++){
+            for(int i=0;i <array_;i++){
                 int x;
                 std::vector<int> tempo;
-                for(int j=0;j<elements;j++){
+                for(int j=0;j<array_height_;j++){
                     std::cin>>x;
                     tempo.push_back(x);
                 }
                 arrayA.push_back(tempo);
             }
             std::vector<std::vector<int>> arrayB;
-            for(int i=0;i < elements;i++){
+            for(int i=0;i <brow_;i++){
                 int x;
                 std::vector<int> tempo;
-                for(int j=0;j<elements;j++){
+                for(int j=0;j<bcol_;j++){
                     std::cin>>x;
                     tempo.push_back(x);
                 }
                 arrayB.push_back(tempo);
             }
-            cpu->fixWeight(arrayB);
+            cpu->fixB(arrayB);
             cpu->fixA(arrayA);
+            //std::cout<<array_<<" "<<array_height_<<" "<<brow_<<" "<<bcol_<<std::endl;
+            /*for(int i=0;i<array_;i++){
+                for(int j=0;j<array_height_;j++){
+                    std::cout<<arrayA[i][j]<<" ";
+                }
+                std::cout<<std::endl;
+            }
+            for(int i=0;i<brow_;i++){
+                for(int j=0;j<bcol_;j++){
+                    std::cout<<arrayB[i][j]<<" ";
+                }
+                std::cout<<std::endl;
+            }*/
             //std::cout<<std::endl;
         } else {
-            cpu = new RandomCPU(config_file, output_dir, units_, row_, column_);
+            cpu = new RandomCPU(config_file, output_dir, units_, row_, column_, array_, array_height_, brow_, bcol_);
         }
     }
 

@@ -367,6 +367,8 @@ iostream
 -
 vector
 -
+utility
+-
 buffer.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/buffer.h
 pe.h
@@ -453,6 +455,8 @@ random
 -
 string
 -
+utility
+-
 pe.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
 memory_system.h
@@ -472,6 +476,8 @@ fstream
 string
 -
 vector
+-
+utility
 -
 common.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/common.h
@@ -508,6 +514,10 @@ cpu.h
 functional
 -
 string
+-
+utility
+-
+vector
 -
 configuration.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/configuration.h
