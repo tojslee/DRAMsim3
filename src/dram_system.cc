@@ -38,9 +38,9 @@ BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
 }
 
 void BaseDRAMSystem::printBuff(){
-    for(int i=0;i<array_size_;i++){
+    for(int i=0;i<row_;i++){
         for(int j=0;j<array_size_;j++){
-            std::cout<<resArray[i][j]<<" ";
+            std::cout<<resArray[j][i]<<" ";
         }
         std::cout<<std::endl;
     }
@@ -158,9 +158,9 @@ void BaseDRAMSystem::RegisterCallbacks(
 
 std::vector<std::vector<int>> BaseDRAMSystem::getBuffer(std::pair<int, int> index){
     std::vector<std::vector<int>> returning;
-    for(int i=0;i<row_;i++){
+    for(int i=0;i<array_size_;i++){
         std::vector<int> temp;
-        for(int j=0;j<array_size_;j++){
+        for(int j=0;j<row_;j++){
             temp.push_back(resArray[i+row_*index.second][j]);
         }
         returning.push_back(temp);

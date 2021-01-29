@@ -442,10 +442,6 @@ unit.h
 thermal.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/thermal.h
 
-/Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.cc
-cpu.h
-/Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.h
-
 /Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.h
 fstream
 -
@@ -469,6 +465,8 @@ multiplier.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h
 calculator.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/calculator.h
+layerinfo.h
+/Users/jisoo/CLionProjects/revDRAMsim3/src/layerinfo.h
 
 /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
 fstream
@@ -502,8 +500,16 @@ vector
 dram_system.h
 /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
 
+/Users/jisoo/CLionProjects/revDRAMsim3/src/layerinfo.h
+string
+-
+
 /Users/jisoo/CLionProjects/revDRAMsim3/src/main.cc
 iostream
+-
+fstream
+-
+string
 -
 ./../ext/headers/args.hxx
 /Users/jisoo/CLionProjects/revDRAMsim3/ext/headers/args.hxx

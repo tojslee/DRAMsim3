@@ -16,6 +16,7 @@ CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/cpu.cc
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/cpu.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/dram_system.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/hmc.h
+CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/layerinfo.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/memory_system.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/multiplier.h
 CMakeFiles/dramsim3main.dir/src/cpu.cc.o: ../src/pe.h
@@ -41,6 +42,7 @@ CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/controller.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/cpu.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/dram_system.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/hmc.h
+CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/layerinfo.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/main.cc
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/memory_system.h
 CMakeFiles/dramsim3main.dir/src/main.cc.o: ../src/multiplier.h

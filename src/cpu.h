@@ -12,6 +12,7 @@
 #include "adder.h"
 #include "multiplier.h"
 #include "calculator.h"
+#include "layerinfo.h"
 
 namespace dramsim3 {
 

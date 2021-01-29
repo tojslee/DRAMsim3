@@ -7,7 +7,8 @@
 #include <vector>
 
 void pe::fixWeight(std::vector<std::vector<int> > v, pe *firstCol) {
-    if(v.size() == 0 || v[0].size() == 0){
+    if(v.size() == 0){return;}
+    if(v[0].size() == 0){
         //std::cout<<std::endl;
         if(firstCol->downPE != NULL){
             v.erase(v.begin());
