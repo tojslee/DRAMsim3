@@ -3,3 +3,11 @@
 //
 
 #include "buffer.h"
+#include <iostream>
+
+void buffer::reset(){
+    nums = 0;
+    isIn = false;
+    values.clear();
+    waitAddr.clear();
+}

@@ -12,7 +12,7 @@
 #include "adder.h"
 #include "multiplier.h"
 #include "calculator.h"
-#include "layerinfo.h"
+#include "layerInfo.h"
 
 namespace dramsim3 {
 
@@ -23,7 +23,7 @@ class CPU {
         : memory_system_(
               config_file, output_dir,
               std::bind(&CPU::ReadCallBack, this, std::placeholders::_1),
-              std::bind(&CPU::WriteCallBack, this, std::placeholders::_1), array_, bcol_),
+              std::bind(&CPU::WriteCallBack, this, std::placeholders::_1), array_, bcol_, row_),
           clk_(0), stall_counter_(0), units_(units_), col_(column_), row_(row_), systolic_array(row_, column_, array_, array_height), array_length(array_),
           array_height(array_height), bcol(bcol_), brow(brow_){
         for(int i=0;i<units_;i++){unit temp = unit(); allUnits.push_back(temp);
@@ -59,6 +59,7 @@ class CPU {
     int array_height;
     int bcol;
     int brow;
+    bool newLayer = false;
 };
 
 class RandomCPU : public CPU {
@@ -75,10 +76,18 @@ class RandomCPU : public CPU {
 
 class StreamCPU : public CPU {
    public:
-    using CPU::CPU;
+    StreamCPU(const std::string& config_file, const std::string& output_dir, const std::int32_t units_, const std::int32_t row_, const std::int32_t column_, const std::int32_t array_,
+              const std::int32_t array_height, const std::int32_t brow_, const std::int32_t bcol_, std::int32_t currLayer_, std::vector<layerInfo> DNNLayers_)
+        :CPU(config_file, output_dir, units_, row_, column_, array_, array_height, brow_, bcol_){
+        currentLayer = currLayer_;
+        DNNLayers.clear();
+        DNNLayers.assign(DNNLayers_.begin(), DNNLayers_.end());
+    }
     bool ClockTick() override;
     int getElementNum(){return elements_;}
     bool lastIdx();
+    void im2Col();
+    void FCLayer();
 
    private:
     uint64_t addr_a_, addr_b_, addr_c_, offset_a_, offset_b_, offset_c_ = 0;
@@ -86,7 +95,7 @@ class StreamCPU : public CPU {
     bool inserted_a_ = false;
     bool inserted_b_ = false;
     bool inserted_c_ = false;
-    uint64_t array_size_ = array_length * array_length;  // elements in array
+    uint64_t array_size_ = array_length * array_height;  // elements in array
     const int stride_ = 1;                // stride in bytes
     const int elements_ = 4;
     int arrayCounter_ = 0;
@@ -94,6 +103,8 @@ class StreamCPU : public CPU {
     bool endCal = false;
     bool endprop = false;
     std::pair<int, int> index = std::make_pair(0, 0);
+    int currentLayer;
+    std::vector<layerInfo> DNNLayers;
 };
 
 class TraceBasedCPU : public CPU {

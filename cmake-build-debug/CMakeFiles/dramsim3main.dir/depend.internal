@@ -17,7 +17,7 @@ CMakeFiles/dramsim3main.dir/src/cpu.cc.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/hmc.h
- /Users/jisoo/CLionProjects/revDRAMsim3/src/layerinfo.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/layerInfo.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/memory_system.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/pe.h
@@ -43,7 +43,7 @@ CMakeFiles/dramsim3main.dir/src/main.cc.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/cpu.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/dram_system.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/hmc.h
- /Users/jisoo/CLionProjects/revDRAMsim3/src/layerinfo.h
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/layerInfo.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/main.cc
  /Users/jisoo/CLionProjects/revDRAMsim3/src/memory_system.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/multiplier.h

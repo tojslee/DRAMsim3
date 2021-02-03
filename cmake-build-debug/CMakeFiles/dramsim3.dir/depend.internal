@@ -99,6 +99,9 @@ CMakeFiles/dramsim3.dir/src/hmc.cc.o
  /Users/jisoo/CLionProjects/revDRAMsim3/src/thermal_config.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/timing.h
  /Users/jisoo/CLionProjects/revDRAMsim3/src/unit.h
+CMakeFiles/dramsim3.dir/src/layerInfo.cpp.o
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/layerInfo.cpp
+ /Users/jisoo/CLionProjects/revDRAMsim3/src/layerInfo.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o
  ../ext/headers/INIReader.h
  ../ext/headers/json.hpp

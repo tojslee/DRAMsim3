@@ -59,8 +59,131 @@ void CPU::fixWeight(std::vector<std::vector<int>> v){
     systolic_array.firstPE->fixWeight(v, systolic_array.firstPE);
 }
 
+void StreamCPU::im2Col(){
+    std::vector<std::vector<int>> FCarrayA;
+    std::vector<std::vector<int>> FCarrayB;
+    std::vector<std::vector<std::vector<std::vector<int>>>> arrayA = DNNLayers[currentLayer].getarrayA();
+    std::vector<std::vector<std::vector<std::vector<int>>>> arrayB = DNNLayers[currentLayer].getarrayB();
+
+    // arrayA
+    for(int i=0;i<DNNLayers[currentLayer].getMinibatch();i++){ // minibatch
+        for(int j=0;j<DNNLayers[currentLayer].getaRow()-DNNLayers[currentLayer].getbRow()+1;j++){ // arow
+            for(int k=0;k<DNNLayers[currentLayer].getaCol()-DNNLayers[currentLayer].getbCol()+1;k++){ // acol
+                std::vector<int> temp;
+                for(int l=0;l<DNNLayers[currentLayer].getK();l++){
+                    for(int m=0;m<DNNLayers[currentLayer].getbRow();m++){
+                        for(int n=0;n<DNNLayers[currentLayer].getbCol();n++){
+                            temp.push_back(arrayA[i][l][j+m][k+n]);
+                        }
+                    }
+                }
+                FCarrayA.push_back(temp);
+            }
+        }
+    }
+
+    // arrayB x, y대칭
+    std::vector<std::vector<int>> FCtilted;
+    for(auto i=arrayB.begin();i!=arrayB.end();i++){ // filter Num
+        auto j = *i;
+        std::vector<int> temp;
+        for(auto k=j.begin();k!=j.end();k++){ // k
+            auto l=*k;
+            for(auto m=l.begin();m!=l.end();m++){ // brow
+                auto n=*m;
+                for(auto o=n.begin();o!=n.end();o++){ // bcol
+                    temp.push_back(*o);
+                }
+            }
+        }
+        FCtilted.push_back(temp);
+    }
+
+    // FCtilted -> FCarrayB
+    for(int i=0;i<FCtilted[0].size();i++){
+        std::vector<int> temp;
+        for(int j=0;j<FCtilted.size();j++){
+            temp.push_back(FCtilted[j][i]);
+        }
+        FCarrayB.push_back(temp);
+    }
+
+    for(int i=0;i<FCarrayB.size();i++){
+        for(int j=0;j<FCarrayB[0].size();j++){
+            std::cout<<FCarrayB[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+
+    fixA(FCarrayA);
+    fixB(FCarrayB);
+
+    // array_length, array_height, brow, bcol 수정
+    // systolic array, cpu, memory
+    array_length = FCarrayA.size();
+    array_height = FCarrayA[0].size();
+    brow = FCarrayB.size();
+    bcol = FCarrayB[0].size();
+    systolic_array.modifyInfo(array_length, array_height);
+    memory_system_.modifyInfo(array_length, bcol);
+}
+
+void StreamCPU::FCLayer(){
+    std::vector<std::vector<int>> FCarrayA;
+    std::vector<int> temp;
+    FCarrayA.push_back(temp);
+    std::vector<std::vector<std::vector<std::vector<int>>>> arrayA = DNNLayers[currentLayer].getarrayA();
+    std::vector<std::vector<std::vector<std::vector<int>>>> arrayB = DNNLayers[currentLayer].getarrayB();
+
+    // arrayA -> 1*N
+    for(auto i=arrayA.begin();i!=arrayA.end();i++){
+        auto j = *i;
+        for(auto k=j.begin();k!=j.end();k++){
+            auto l=*k;
+            for(auto m=l.begin();m!=l.end();m++){
+                auto n=*m;
+                for(auto o=n.begin();o!=n.end();o++){
+                    FCarrayA[0].push_back(*o);
+                }
+            }
+        }
+    }
+
+    // araryB(1*1*N*P) -> N*P
+    std::vector<std::vector<int>> FCarrayB;
+    FCarrayB.assign(arrayB[0][0].begin(), arrayB[0][0].end());
+
+    for(int i=0;i<FCarrayA.size();i++){
+        for(int j=0;j<FCarrayA[0].size();j++){
+            std::cout<<FCarrayA[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+
+    for(int i=0;i<FCarrayB.size();i++){
+        for(int j=0;j<FCarrayB[0].size();j++){
+            std::cout<<FCarrayB[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+
+    array_length = FCarrayA.size();
+    array_height = FCarrayA[0].size();
+    brow = FCarrayB.size();
+    bcol = FCarrayB[0].size();
+    systolic_array.modifyInfo(array_length, array_height);
+    memory_system_.modifyInfo(array_length, bcol);
+
+    // input Filter
+    fixA(FCarrayA);
+    fixB(FCarrayB);
+}
+
 bool StreamCPU::lastIdx(){
-    return (index.first >= ceil(brow/row_) && index.second >= ceil(bcol/row_));
+    return (index.first >= (brow-1)/row_ && index.second >= (bcol-1)/row_);
 }
 
 bool StreamCPU::ClockTick() {
@@ -70,20 +193,25 @@ bool StreamCPU::ClockTick() {
 
     // moving on to next set of arrays
     memory_system_.ClockTick();
-    if (offset_a_ > array_size_ ||clk_ == 0) {
+    if (offset_a_ > array_size_ ||clk_ == 0 || newLayer) {
         addr_a_ = gen();
         addr_b_ = gen();
         addr_c_ = gen();
         offset_a_ = 0;
         offset_b_ = 0;
         offset_c_ = 0;
-        // first 4*4 fix weight
-        for(int i=0;i<brow;i++){
-            for(int j=0;j<bcol;j++){
-                std::cout<<systolic_array.arrayB[i][j]<<" ";
-            }
-            std::cout<<std::endl;
+        systolic_array.reset();
+
+        if(DNNLayers[currentLayer].getType().compare("FC") == 0){
+            FCLayer();
         }
+        else if(DNNLayers[currentLayer].getType().compare("Conv") == 0){
+            im2Col();
+        }
+
+        array_size_ = array_length *array_height;
+
+        // first 4*4 fix weight
         std::vector<std::vector<int>> v;
         for(int i=0;i<row_;i++){
             if(i+index.first*row_ < systolic_array.arrayB.size()){
@@ -96,14 +224,9 @@ bool StreamCPU::ClockTick() {
                 v.push_back(temp);
             }
         }
-        /*for(auto i = v.begin();i != v.end();i++){
-            auto it = *i;
-            for(auto j = it.begin();j != it.end();j++){
-                std::cout<<*j<<" ";
-            }
-            std::cout<<std::endl;
-        }*/
         fixWeight(v);
+
+        newLayer = false;
     }
 
 
@@ -124,7 +247,7 @@ bool StreamCPU::ClockTick() {
     }
 
     // finishing all reading
-    if(readCallBacks.size() == array_length * array_length){
+    if(readCallBacks.size() == array_length * array_height){
         auto iter = readCallBacks.begin();
         std::vector<uint64_t> temp = systolic_array.getAddr(1);
         while(iter != readCallBacks.end()){
@@ -152,7 +275,7 @@ bool StreamCPU::ClockTick() {
         std::vector<std::vector<int>> buffering = systolic_array.getR();
         memory_system_.newBuffer(buffering, index);
 
-        if(index.second >= ceil(bcol/row_)){
+        if(index.second >= (bcol-1)/row_){
             index.first += 1;
             index.second = 0;
             endprop = false;
@@ -209,10 +332,7 @@ bool StreamCPU::ClockTick() {
         writeStart_ = false;
         inserted_a_ = false;
         inserted_c_ = false;
-        /*if(16/col_ > counter_){
-            offset_a_ -= row_ * stride_;
-        }
-        else{counter_ = 0;}*/
+
         endCal = false;
         endprop = false;
         systolic_array.bufferReset(1);
@@ -220,12 +340,64 @@ bool StreamCPU::ClockTick() {
         memory_system_.newBuffer(buffering, index);
         std::cout<<std::endl;
         memory_system_.printBuff();
-        if(offset_a_ >= array_size_){
-            /*int res = systolic_array.getUsage();
-            double sys = (double)res / (double)clk_;
-            printf("%f", sys*100);*/
-            return true;
+        if(currentLayer + 1 < DNNLayers.size()){
+            std::vector<std::vector<int>> res = memory_system_.getallBuffer();
+            std::vector<std::vector<std::vector<std::vector<int>>>> nextarrayA;
+            // put result array into next Layer
+            if(DNNLayers[currentLayer].getType().compare("Conv") == 0){
+                // 1row -> minibatch * (aRow-bRow+1) * (aCol-bCol+1)
+                // # of rows : filterNum
+                // minibatch * FilterNum * (aRow-bRow+1) * (aCol-bCol+1)
+                for(int i=0;i<DNNLayers[currentLayer].getMinibatch();i++){
+                    std::vector<std::vector<std::vector<int>>> thirdtemp;
+                    for(int j=0;j<DNNLayers[currentLayer].getFilterNum();j++){
+                        std::vector<std::vector<int>> secondtemp;
+                        for(int l=0;l<DNNLayers[currentLayer].getaRow()-DNNLayers[currentLayer].getbRow()+1;l++){
+                            std::vector<int> temp;
+                            for(int m=0;m<DNNLayers[currentLayer].getaCol()-DNNLayers[currentLayer].getbCol()+1;m++){
+                                int unit = DNNLayers[currentLayer].getaRow()-DNNLayers[currentLayer].getbRow() + DNNLayers[currentLayer].getaCol()-DNNLayers[currentLayer].getbCol()+2;
+                                temp.push_back(res[j][i*unit+l+m]);
+                            }
+                            secondtemp.push_back(temp);
+                        }
+                        thirdtemp.push_back(secondtemp);
+                    }
+                    nextarrayA.push_back(thirdtemp);
+                }
+            }
+
+            for(auto i=nextarrayA.begin();i!=nextarrayA.end();i++){
+                auto j = *i;
+                for(auto k=j.begin();k!=j.end();k++){
+                    auto l=*k;
+                    for(auto m=l.begin();m!=l.end();m++){
+                        auto n=*m;
+                        for(auto o=n.begin();o!=n.end();o++){
+                            std::cout<<*o<<" ";
+                        }
+                        std::cout<<std::endl;
+                    }
+                    std::cout<<std::endl;
+                }
+                std::cout<<std::endl;
+            }
+            std::cout<<std::endl;
+
+
+            /*else if(DNNLayers[currentLayer].getType().compare("FC") == 0){
+
+            }*/
+            DNNLayers[currentLayer+1].setarrayA(nextarrayA);
+
+            // init
+            newLayer = true;
+            currentLayer++;
+            index = std::make_pair(0, 0);
+
+            clk_++;
+            return false;
         }
+        return true;
     }
     else{
         stall_counter_++;

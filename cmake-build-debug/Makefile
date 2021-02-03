@@ -493,6 +493,33 @@ src/hmc.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/hmc.cc.s
 .PHONY : src/hmc.cc.s
 
+src/layerInfo.o: src/layerInfo.cpp.o
+
+.PHONY : src/layerInfo.o
+
+# target to build an object file
+src/layerInfo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/layerInfo.cpp.o
+.PHONY : src/layerInfo.cpp.o
+
+src/layerInfo.i: src/layerInfo.cpp.i
+
+.PHONY : src/layerInfo.i
+
+# target to preprocess a source file
+src/layerInfo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/layerInfo.cpp.i
+.PHONY : src/layerInfo.cpp.i
+
+src/layerInfo.s: src/layerInfo.cpp.s
+
+.PHONY : src/layerInfo.s
+
+# target to generate assembly for a file
+src/layerInfo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dramsim3.dir/build.make CMakeFiles/dramsim3.dir/src/layerInfo.cpp.s
+.PHONY : src/layerInfo.cpp.s
+
 src/main.o: src/main.cc.o
 
 .PHONY : src/main.o
@@ -837,6 +864,9 @@ help:
 	@echo "... src/hmc.o"
 	@echo "... src/hmc.i"
 	@echo "... src/hmc.s"
+	@echo "... src/layerInfo.o"
+	@echo "... src/layerInfo.i"
+	@echo "... src/layerInfo.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

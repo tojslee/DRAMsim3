@@ -9,6 +9,7 @@
 
 class buffer {
 public:
+    void reset();
     std::vector<std::uint64_t> waitAddr;
     std::vector<int> values;
     int nums = 0;

@@ -12,6 +12,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/dramsim3.dir/src/controller.cc.o"
   "CMakeFiles/dramsim3.dir/src/dram_system.cc.o"
   "CMakeFiles/dramsim3.dir/src/hmc.cc.o"
+  "CMakeFiles/dramsim3.dir/src/layerInfo.cpp.o"
   "CMakeFiles/dramsim3.dir/src/memory_system.cc.o"
   "CMakeFiles/dramsim3.dir/src/multiplier.cpp.o"
   "CMakeFiles/dramsim3.dir/src/pe.cpp.o"

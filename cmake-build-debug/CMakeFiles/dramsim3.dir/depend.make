@@ -99,6 +99,9 @@ CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/thermal_config.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/timing.h
 CMakeFiles/dramsim3.dir/src/hmc.cc.o: ../src/unit.h
 
+CMakeFiles/dramsim3.dir/src/layerInfo.cpp.o: ../src/layerInfo.cpp
+CMakeFiles/dramsim3.dir/src/layerInfo.cpp.o: ../src/layerInfo.h
+
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../ext/headers/INIReader.h
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../ext/headers/json.hpp
 CMakeFiles/dramsim3.dir/src/memory_system.cc.o: ../src/bankstate.h

@@ -39,7 +39,7 @@ add_library(dramsim3 SHARED
     src/simple_stats.cc
     src/timing.cc
     src/memory_system.cc
-        src/unit.cpp src/unit.h src/buffer.cpp src/buffer.h src/adder.cpp src/adder.h src/multiplier.cpp src/multiplier.h src/calculator.cpp src/calculator.h src/pe.cpp src/pe.h)
+        src/unit.cpp src/unit.h src/buffer.cpp src/buffer.h src/adder.cpp src/adder.h src/multiplier.cpp src/multiplier.h src/calculator.cpp src/calculator.h src/pe.cpp src/pe.h src/layerInfo.cpp src/layerInfo.h)
 
 if (THERMAL)
     # dependency check

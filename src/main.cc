@@ -6,6 +6,25 @@
 
 using namespace dramsim3;
 
+void printArr(std::vector<std::vector<std::vector<std::vector<int>>>> oneArray){
+    for(auto i=oneArray.begin();i!=oneArray.end();i++){
+        auto j=*i;
+        for(auto k=j.begin();k!=j.end();k++){
+            auto l=*k;
+            for(auto s=l.begin();s!=l.end();s++){
+                auto d=*s;
+                for(auto a=d.begin();a!=d.end();a++){
+                    std::cout<<*a<<" ";
+                }
+                std::cout<<std::endl;
+            }
+            std::cout<<std::endl;
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+}
+
 int main(int argc, const char **argv) {
     args::ArgumentParser parser(
         "DRAM Simulator.",
@@ -100,7 +119,7 @@ int main(int argc, const char **argv) {
         std::string str;
         getline(dnnTrace, str);
         int layerNum = std::stoi(str);
-        printf("%d\n", layerNum);
+        //printf("%d\n", layerNum);
         for(int i=0;i<layerNum;i++){ // get layer Info
             getline(dnnTrace, str);
             // type, minibatch, aRow, aCol, k, filterNum, bRow, bCol, optimal
@@ -118,7 +137,7 @@ int main(int argc, const char **argv) {
                 DNNLayers.push_back(oneLayer);
             }
             else if(parse[0].compare("FC") == 0){
-                layerInfo oneLayer(parse[0], 1, 1, stoi(parse[1]), 1 , stoi(parse[1]), stoi(parse[2]), 1, parse[3]);
+                layerInfo oneLayer(parse[0], 1, 1, stoi(parse[1]), 1 , 1, stoi(parse[1]), stoi(parse[2]), parse[3]);
                 DNNLayers.push_back(oneLayer);
             }
         }
@@ -149,80 +168,72 @@ int main(int argc, const char **argv) {
                 for(int l=0;l<DNNLayers[0].getK();l++){
                     std::vector<int> t;
                     for(int s=0;s<DNNLayers[0].getaCol();s++){
-                        t.push_back(parse[l*DNNLayers[0].getK()+s]);
+                        t.push_back(parse[l*DNNLayers[0].getaCol()+s]);
                     }
                     arrVector[l].push_back(t);
                 }
                 parse.clear();
             }
-
             oneArray.push_back(arrVector);
         }
+        DNNLayers[0].setarrayA(oneArray);
+        printArr(oneArray);
         oneArray.clear();
 
         // get filter array for each layer
-
-        /*for(auto i=oneArray.begin();i!=oneArray.end();i++){
-            auto j=*i;
-            for(auto k=j.begin();k!=j.end();k++){
-                auto l=*k;
-                for(auto s=l.begin();s!=l.end();s++){
-                    auto d=*s;
-                    for(auto a=d.begin();a!=d.end();a++){
-                        std::cout<<*a<<" ";
-                    }
-                    std::cout<<std::endl;
+        for(int i=0;i<layerNum;i++){
+            for(int j=0;j<DNNLayers[i].getFilterNum();j++){
+                // get filter array
+                // row : bRow & col : k * bCol
+                // parse : integer vector containing lth row of each filter
+                // length -> k * bCol
+                std::vector<std::int32_t> parse;
+                std::vector<std::vector<std::vector<int>>> arrVector;
+                for(int l=0;l<DNNLayers[i].getK();l++){
+                    std::vector<std::vector<int>> temp;
+                    arrVector.push_back(temp);
                 }
-                std::cout<<std::endl;
-            }
-            std::cout<<std::endl;
-        }
-        std::cout<<std::endl;*/
+                for(int l=0;l<DNNLayers[i].getbRow();l++){
+                    getline(dnnTrace, str);
+                    size_t prev = 0;
+                    for(int s=0;s<str.size();s++){
+                        if(isblank(str[s])){
+                            parse.push_back(stoi(str.substr(prev, s-prev)));
+                            prev = s+1;
+                        }
+                    }
+                    parse.push_back(stoi(str.substr(prev, str.size()-prev)));
 
+                    for(int s=0;s<DNNLayers[i].getK();s++){
+                        std::vector<int> t;
+                        for(int d=0;d<DNNLayers[i].getbCol();d++){
+                            t.push_back(parse[s*DNNLayers[i].getbCol()+d]);
+                        }
+                        arrVector[s].push_back(t);
+                    }
+                    parse.clear();
+                }
+                oneArray.push_back(arrVector);
+            }
+            DNNLayers[i].setarrayB(oneArray);
+            printArr(oneArray);
+            oneArray.clear();
+        }
     }
     dnnTrace.close();
+
+    int currentLayer = 0;
 
     if (!trace_file.empty()) {
         cpu = new TraceBasedCPU(config_file, output_dir, trace_file, units_, row_, column_, array_, array_height_, brow_, bcol_);
     } else {
         if (stream_type == "stream" || stream_type == "s") {
-            cpu = new StreamCPU(config_file, output_dir, units_, row_, column_, array_, array_height_, brow_, bcol_);
-            std::vector<std::vector<int>> arrayA;
-            for(int i=0;i <array_;i++){
-                int x;
-                std::vector<int> tempo;
-                for(int j=0;j<array_height_;j++){
-                    std::cin>>x;
-                    tempo.push_back(x);
-                }
-                arrayA.push_back(tempo);
+            if(DNNLayers.size() != 0){
+                cpu = new StreamCPU(config_file, output_dir, units_, row_, column_, DNNLayers[0].getaRow(), DNNLayers[0].getaCol(), DNNLayers[0].getbRow(), DNNLayers[0].getbCol(), currentLayer, DNNLayers);
             }
-            std::vector<std::vector<int>> arrayB;
-            for(int i=0;i <brow_;i++){
-                int x;
-                std::vector<int> tempo;
-                for(int j=0;j<bcol_;j++){
-                    std::cin>>x;
-                    tempo.push_back(x);
-                }
-                arrayB.push_back(tempo);
+            else{
+                cpu = new StreamCPU(config_file, output_dir, units_, row_, column_, array_, array_height_, brow_, bcol_, currentLayer, DNNLayers);
             }
-            cpu->fixB(arrayB);
-            cpu->fixA(arrayA);
-            //std::cout<<array_<<" "<<array_height_<<" "<<brow_<<" "<<bcol_<<std::endl;
-            /*for(int i=0;i<array_;i++){
-                for(int j=0;j<array_height_;j++){
-                    std::cout<<arrayA[i][j]<<" ";
-                }
-                std::cout<<std::endl;
-            }
-            for(int i=0;i<brow_;i++){
-                for(int j=0;j<bcol_;j++){
-                    std::cout<<arrayB[i][j]<<" ";
-                }
-                std::cout<<std::endl;
-            }*/
-            //std::cout<<std::endl;
         } else {
             cpu = new RandomCPU(config_file, output_dir, units_, row_, column_, array_, array_height_, brow_, bcol_);
         }

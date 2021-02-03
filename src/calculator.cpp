@@ -11,7 +11,7 @@ calculator::calculator(int row_, int column_, int array_, int array_height){
     column = column_;
     array_length = array_;
     this->array_height = array_height;
-    for(int i=0;i<array_;i++){
+    for(int i=0;i<std::min(array_height, row_);i++){
         std::vector<int> v;
         //for(int j=0;j<array_;j++){
         //    v.push_back(0);
@@ -61,14 +61,20 @@ calculator::calculator(int row_, int column_, int array_, int array_height){
 
 bool calculator::endGetInput(int idx) {
     if(idx == 1){
-        return array_length*array_length == inputBuffer.nums + inputBuffer.waitAddr.size();
+        return array_length*array_height == inputBuffer.nums + inputBuffer.waitAddr.size();
     }
     else if(idx == 2){
-        return array_length*array_length == filterBuffer.nums + filterBuffer.waitAddr.size();
+        return array_length*array_height == filterBuffer.nums + filterBuffer.waitAddr.size();
     }
     else{
-        return array_length*array_length == outputBuffer.nums + outputBuffer.waitAddr.size();
+        return array_length*array_height == outputBuffer.nums + outputBuffer.waitAddr.size();
     }
+}
+
+void calculator::reset(){
+    inputBuffer.reset();
+    filterBuffer.reset();
+    outputBuffer.reset();
 }
 
 void calculator::getInput(int idx, uint64_t addr_, uint64_t offset_) {
@@ -265,4 +271,33 @@ void calculator::subNums(int idx){
 void calculator::setR(std::vector<std::vector<int>> r){
     arrayR.clear();
     arrayR.assign(r.begin(), r.end());
+}
+
+void calculator::modifyInfo(int array_length_, int array_height_) {
+    array_length = (double)array_length_;
+    array_height = (double)array_height_;
+
+    arrayR.clear();
+    resIdx.clear();
+    for(int i=0;i<std::min(array_height, row);i++){
+        std::vector<int> v;
+        arrayR.push_back(v);
+        resIdx.push_back(0);
+    }
+
+    aIdx.clear();
+    if(ceil(this->array_height/row) == 0){
+        int temp = 0;
+        for(int i=0;i<row;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
+    }
+    for(int j=0;j<ceil(this->array_height/this->row);j++){
+        int temp = 0;
+        for(int i=0;i<row;i++){
+            aIdx.push_back(temp);
+            temp -= 1;
+        }
+    }
 }

@@ -33,6 +33,8 @@ public:
     std::vector<std::vector<int>> getR(){return arrayR;}
     void setR(std::vector<std::vector<int>> r);
     void setUsage(int a, int b){row_usage = a; col_usage = b;}
+    void modifyInfo(int array_length_, int array_height_);
+    void reset();
 
 protected:
     double row;

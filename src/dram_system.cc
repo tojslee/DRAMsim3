@@ -10,7 +10,7 @@ int BaseDRAMSystem::total_channels_ = 0;
 
 BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
                                std::function<void(uint64_t)> read_callback,
-                               std::function<void(uint64_t)> write_callback, int row, int array)
+                               std::function<void(uint64_t)> write_callback, int row, int array, int sys_row)
     : read_callback_(read_callback),
       write_callback_(write_callback),
       last_req_clk_(0),
@@ -18,6 +18,7 @@ BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
       timing_(config_),
       row_(row),
       array_size_(array),
+      sys_row_(sys_row),
 #ifdef THERMAL
       thermal_calc_(config_),
 #endif  // THERMAL
@@ -30,7 +31,7 @@ BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
 #endif
     for(int i=0;i<array_size_;i++){
         std::vector<int> temp;
-        for(int j=0;j<array_size_;j++){
+        for(int j=0;j<row_;j++){
             temp.push_back(0);
         }
         resArray.push_back(temp);
@@ -43,6 +44,19 @@ void BaseDRAMSystem::printBuff(){
             std::cout<<resArray[j][i]<<" ";
         }
         std::cout<<std::endl;
+    }
+}
+
+void BaseDRAMSystem::modifyInfo(int row, int array) {
+    row_ = row;
+    array_size_ = array;
+    resArray.clear();
+    for(int i=0;i<array;i++){
+        std::vector<int> temp;
+        for(int j=0;j<row;j++){
+            temp.push_back(0);
+        }
+        resArray.push_back(temp);
     }
 }
 
@@ -93,6 +107,10 @@ uint64_t BaseDRAMSystem::getAddr(int flag){
     if(flag == 1){return buffer_a.waitAddr.front();}
     else if(flag == 2){return buffer_b.waitAddr.front();}
     else{return buffer_c.waitAddr.front();}
+}
+
+std::vector<std::vector<int>> BaseDRAMSystem::getallBuffer() {
+    return resArray;
 }
 
 bool BaseDRAMSystem::getisIn(int flag){
@@ -158,12 +176,15 @@ void BaseDRAMSystem::RegisterCallbacks(
 
 std::vector<std::vector<int>> BaseDRAMSystem::getBuffer(std::pair<int, int> index){
     std::vector<std::vector<int>> returning;
-    for(int i=0;i<array_size_;i++){
-        std::vector<int> temp;
-        for(int j=0;j<row_;j++){
-            temp.push_back(resArray[i+row_*index.second][j]);
+    for(int i=0;i<sys_row_;i++){
+        if(i+sys_row_*index.second < resArray.size()){
+            std::vector<int> temp;
+            for(int j=0;j<row_;j++){
+                temp.push_back(resArray[i+sys_row_*index.second][j]);
+            }
+            returning.push_back(temp);
         }
-        returning.push_back(temp);
+        else{break;}
     }
     return returning;
 }
@@ -178,8 +199,8 @@ void BaseDRAMSystem::newBuffer(std::vector<std::vector<int>> r, std::pair<int, i
 
 JedecDRAMSystem::JedecDRAMSystem(Config &config, const std::string &output_dir,
                                  std::function<void(uint64_t)> read_callback,
-                                 std::function<void(uint64_t)> write_callback, int row, int array)
-    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array) {
+                                 std::function<void(uint64_t)> write_callback, int row, int array, int sys_row)
+    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array, sys_row) {
     if (config_.IsHMC()) {
         std::cerr << "Initialized a memory system with an HMC config file!"
                   << std::endl;
@@ -254,8 +275,8 @@ void JedecDRAMSystem::ClockTick() {
 
 IdealDRAMSystem::IdealDRAMSystem(Config &config, const std::string &output_dir,
                                  std::function<void(uint64_t)> read_callback,
-                                 std::function<void(uint64_t)> write_callback, int row, int array)
-    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array),
+                                 std::function<void(uint64_t)> write_callback, int row, int array, int sys_row)
+    : BaseDRAMSystem(config, output_dir, read_callback, write_callback, row, array, sys_row),
       latency_(config_.ideal_memory_latency) {}
 
 IdealDRAMSystem::~IdealDRAMSystem() {}

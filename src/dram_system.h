@@ -22,7 +22,7 @@ class BaseDRAMSystem {
    public:
     BaseDRAMSystem(Config &config, const std::string &output_dir,
                    std::function<void(uint64_t)> read_callback,
-                   std::function<void(uint64_t)> write_callback, int row, int array);
+                   std::function<void(uint64_t)> write_callback, int row, int array, int sys_row);
     virtual ~BaseDRAMSystem() {}
     void RegisterCallbacks(std::function<void(uint64_t)> read_callback,
                            std::function<void(uint64_t)> write_callback);
@@ -51,6 +51,8 @@ class BaseDRAMSystem {
     buffer buffer_b;
     buffer buffer_c;
     void printBuff();
+    void modifyInfo(int row, int array); // array, bcol
+    std::vector<std::vector<int>> getallBuffer();
 
    protected:
     uint64_t id_;
@@ -60,8 +62,9 @@ class BaseDRAMSystem {
     uint64_t parallel_cycles_;
     uint64_t serial_cycles_;
     std::vector<std::vector<int>> resArray;
-    int row_; // systolic array size
-    int array_size_; // input array size
+    int row_; // arrayA length
+    int array_size_; // b col size
+    int sys_row_; // systolic array size
 
 #ifdef THERMAL
     ThermalCalculator thermal_calc_;
@@ -80,7 +83,7 @@ class JedecDRAMSystem : public BaseDRAMSystem {
    public:
     JedecDRAMSystem(Config &config, const std::string &output_dir,
                     std::function<void(uint64_t)> read_callback,
-                    std::function<void(uint64_t)> write_callback, int row, int array);
+                    std::function<void(uint64_t)> write_callback, int row, int array, int sys_row);
     ~JedecDRAMSystem();
     bool WillAcceptTransaction(uint64_t hex_addr, bool is_write) const override;
     bool AddTransaction(uint64_t hex_addr, bool is_write) override;
@@ -94,7 +97,7 @@ class IdealDRAMSystem : public BaseDRAMSystem {
    public:
     IdealDRAMSystem(Config &config, const std::string &output_dir,
                     std::function<void(uint64_t)> read_callback,
-                    std::function<void(uint64_t)> write_callback, int row, int array);
+                    std::function<void(uint64_t)> write_callback, int row, int array, int sys_row);
     ~IdealDRAMSystem();
     bool WillAcceptTransaction(uint64_t hex_addr,
                                bool is_write) const override {

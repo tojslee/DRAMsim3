@@ -17,7 +17,7 @@ class MemorySystem {
    public:
     MemorySystem(const std::string &config_file, const std::string &output_dir,
                  std::function<void(uint64_t)> read_callback,
-                 std::function<void(uint64_t)> write_callback, int row, int array);
+                 std::function<void(uint64_t)> write_callback, int row, int array, int sys_row);
     ~MemorySystem();
     void ClockTick();
     void RegisterCallbacks(std::function<void(uint64_t)> read_callback,
@@ -38,8 +38,10 @@ class MemorySystem {
     bool getisIn(int flag);
     uint64_t getAddr(int flag);
     void printBuff();
+    void modifyInfo(int row, int array);
     std::vector<std::vector<int>> getBuffer(std::pair<int, int> index);
     void newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index);
+    std::vector<std::vector<int>> getallBuffer();
 
    private:
     // These have to be pointers because Gem5 will try to push this object

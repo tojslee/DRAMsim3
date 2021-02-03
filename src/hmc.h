@@ -106,7 +106,7 @@ class HMCMemorySystem : public BaseDRAMSystem {
    public:
     HMCMemorySystem(Config& config, const std::string& output_dir,
                     std::function<void(uint64_t)> read_callback,
-                    std::function<void(uint64_t)> write_callback, int row, int array);
+                    std::function<void(uint64_t)> write_callback, int row, int array, int sys_row_);
     ~HMCMemorySystem();
     // assuming there are 2 clock domains one for logic die one for DRAM
     // we can unify them as one but then we'll have to convert all the
