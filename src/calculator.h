@@ -28,10 +28,10 @@ public:
     bool propagation(std::pair<int, int> index);
     pe *firstPE;
     std::vector<pe *> firstColumn;
-    std::vector<std::vector<int>> arrayA;
-    std::vector<std::vector<int>> arrayB;
-    std::vector<std::vector<int>> getR(){return arrayR;}
-    void setR(std::vector<std::vector<int>> r);
+    std::vector<std::vector<double>> arrayA;
+    std::vector<std::vector<double>> arrayB;
+    std::vector<std::vector<double>> getR(){return arrayR;}
+    void setR(std::vector<std::vector<double>> r);
     void setUsage(int a, int b){row_usage = a; col_usage = b;}
     void modifyInfo(int array_length_, int array_height_);
     void reset();
@@ -44,7 +44,7 @@ protected:
     double array_length;
     double array_height;
     std::vector<int> resIdx;
-    std::vector<std::vector<int>> arrayR;
+    std::vector<std::vector<double>> arrayR;
     std::vector<int> aIdx;
     buffer inputBuffer; // idx = 1
     buffer filterBuffer; // idx = 2

@@ -12,7 +12,7 @@ calculator::calculator(int row_, int column_, int array_, int array_height){
     array_length = array_;
     this->array_height = array_height;
     for(int i=0;i<std::min(array_height, row_);i++){
-        std::vector<int> v;
+        std::vector<double> v;
         //for(int j=0;j<array_;j++){
         //    v.push_back(0);
         //}
@@ -104,8 +104,10 @@ void calculator::setAddr(int idx, std::vector<uint64_t> temp){
 
 void calculator::addBuffer(int idx){
     if(idx == 1){
-        inputBuffer.nums++;
-        if(inputBuffer.nums == row){inputBuffer.isIn = true;}
+        inputBuffer.nums = array_length*array_height;
+        inputBuffer.isIn = true;
+        //inputBuffer.nums++;
+        //if(inputBuffer.nums == row){inputBuffer.isIn = true;}
     }
     else if (idx == 2){
         filterBuffer.nums++;
@@ -204,13 +206,14 @@ bool calculator::propagation(std::pair<int, int> index){ // propagate value to n
     }
 
     for(auto iter = arrayR.begin();iter != arrayR.end();iter++){
-        std::vector<int> eachline = *iter;
+        std::vector<double> eachline = *iter;
         for(auto iter2 = eachline.begin(); iter2 != eachline.end();iter2++){
+            if(*iter2 < 0){*iter2 = 0;}
             std::cout<< *iter2<<" ";
         }
         std::cout<<std::endl;
     }
-    outputBuffer.nums = array_length * col_usage;
+    outputBuffer.nums += array_length * col_usage;
     for(auto iter = firstColumn.begin();iter != firstColumn.end();iter++){
         auto it = *iter;
         while(it!=NULL){
@@ -268,7 +271,7 @@ void calculator::subNums(int idx){
     else{outputBuffer.nums--;}
 }
 
-void calculator::setR(std::vector<std::vector<int>> r){
+void calculator::setR(std::vector<std::vector<double>> r){
     arrayR.clear();
     arrayR.assign(r.begin(), r.end());
 }
@@ -280,7 +283,7 @@ void calculator::modifyInfo(int array_length_, int array_height_) {
     arrayR.clear();
     resIdx.clear();
     for(int i=0;i<std::min(array_height, row);i++){
-        std::vector<int> v;
+        std::vector<double> v;
         arrayR.push_back(v);
         resIdx.push_back(0);
     }

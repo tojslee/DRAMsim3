@@ -37,11 +37,11 @@ void MemorySystem::RegisterCallbacks(
     dram_system_->RegisterCallbacks(read_callback, write_callback);
 }
 
-std::vector<std::vector<int>> MemorySystem::getBuffer(std::pair<int, int> index){
+std::vector<std::vector<double>> MemorySystem::getBuffer(std::pair<int, int> index){
     return dram_system_->getBuffer(index);
 }
 
-void MemorySystem::newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index){
+void MemorySystem::newBuffer(std::vector<std::vector<double>> r, std::pair<int, int> index){
     dram_system_->newBuffer(r, index);
 }
 
@@ -78,7 +78,7 @@ uint64_t MemorySystem::getAddr(int flag){
     return dram_system_->getAddr(flag);
 }
 
-std::vector<std::vector<int>> MemorySystem::getallBuffer() {
+std::vector<std::vector<double>> MemorySystem::getallBuffer() {
     return dram_system_->getallBuffer();
 }
 

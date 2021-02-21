@@ -36,9 +36,9 @@ class CPU {
     void PrintStall(){std::cout<<stall_counter_<<std::endl;}
     bool isEnd();
     int freeUnit();
-    void fixWeight(std::vector<std::vector<int>> v);
-    void fixA(std::vector<std::vector<int>> v);
-    void fixB(std::vector<std::vector<int>> v);
+    void fixWeight(std::vector<std::vector<double>> v);
+    void fixA(std::vector<std::vector<double>> v);
+    void fixB(std::vector<std::vector<double>> v);
 
    protected:
     MemorySystem memory_system_;

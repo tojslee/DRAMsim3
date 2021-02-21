@@ -30,7 +30,7 @@ BaseDRAMSystem::BaseDRAMSystem(Config &config, const std::string &output_dir,
     address_trace_.open(addr_trace_name);
 #endif
     for(int i=0;i<array_size_;i++){
-        std::vector<int> temp;
+        std::vector<double> temp;
         for(int j=0;j<row_;j++){
             temp.push_back(0);
         }
@@ -52,7 +52,7 @@ void BaseDRAMSystem::modifyInfo(int row, int array) {
     array_size_ = array;
     resArray.clear();
     for(int i=0;i<array;i++){
-        std::vector<int> temp;
+        std::vector<double> temp;
         for(int j=0;j<row;j++){
             temp.push_back(0);
         }
@@ -109,7 +109,7 @@ uint64_t BaseDRAMSystem::getAddr(int flag){
     else{return buffer_c.waitAddr.front();}
 }
 
-std::vector<std::vector<int>> BaseDRAMSystem::getallBuffer() {
+std::vector<std::vector<double>> BaseDRAMSystem::getallBuffer() {
     return resArray;
 }
 
@@ -174,11 +174,11 @@ void BaseDRAMSystem::RegisterCallbacks(
     write_callback_ = write_callback;
 }
 
-std::vector<std::vector<int>> BaseDRAMSystem::getBuffer(std::pair<int, int> index){
-    std::vector<std::vector<int>> returning;
+std::vector<std::vector<double>> BaseDRAMSystem::getBuffer(std::pair<int, int> index){
+    std::vector<std::vector<double>> returning;
     for(int i=0;i<sys_row_;i++){
         if(i+sys_row_*index.second < resArray.size()){
-            std::vector<int> temp;
+            std::vector<double> temp;
             for(int j=0;j<row_;j++){
                 temp.push_back(resArray[i+sys_row_*index.second][j]);
             }
@@ -189,10 +189,10 @@ std::vector<std::vector<int>> BaseDRAMSystem::getBuffer(std::pair<int, int> inde
     return returning;
 }
 
-void BaseDRAMSystem::newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index){
+void BaseDRAMSystem::newBuffer(std::vector<std::vector<double>> r, std::pair<int, int> index){
     for(int i=0;i<r.size();i++){
         for(int j=0;j<r[i].size();j++){
-            resArray[i+row_*index.second][j] = r[i][j];
+            resArray[i+sys_row_*index.second][j] = r[i][j];
         }
     }
 }

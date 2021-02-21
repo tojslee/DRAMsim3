@@ -10,6 +10,7 @@
 
 class layerInfo {
 public:
+    layerInfo();
     layerInfo(std::string type_, int minibatch_, int aRow_, int aCol_, int k_, int filterNum_, int bRow_, int bCol_, std::string optimal_);
     // getter
     int getaRow(){return aRow;}
@@ -19,12 +20,13 @@ public:
     int getK(){return k;}
     int getMinibatch(){return minibatch;}
     int getFilterNum(){return filterNum;}
-    std::vector<std::vector<std::vector<std::vector<int>>>> getarrayA(){return arrayA;}
-    std::vector<std::vector<std::vector<std::vector<int>>>> getarrayB(){return arrayB;}
+    void setAll(std::string type_, int minibatch_, int aRow_, int aCol_, int k_, int filterNum_, int bRow_, int bCol_, std::string optimal_);
+    std::vector<std::vector<std::vector<std::vector<double>>>> getarrayA(){return arrayA;}
+    std::vector<std::vector<std::vector<std::vector<double>>>> getarrayB(){return arrayB;}
     std::string getType(){return type;}
     std::string getOptimal(){return optimal;}
-    void setarrayA(std::vector<std::vector<std::vector<std::vector<int>>>> a);
-    void setarrayB(std::vector<std::vector<std::vector<std::vector<int>>>> b);
+    void setarrayA(std::vector<std::vector<std::vector<std::vector<double>>>> a);
+    void setarrayB(std::vector<std::vector<std::vector<std::vector<double>>>> b);
 
 private:
     int aRow;
@@ -36,8 +38,8 @@ private:
     int minibatch;
     int filterNum;
     std::string optimal; // ReLU
-    std::vector<std::vector<std::vector<std::vector<int>>>> arrayA; // minibatch *(aRow*aCol*k)
-    std::vector<std::vector<std::vector<std::vector<int>>>> arrayB; // filterNum *(bRow*bCol*k)
+    std::vector<std::vector<std::vector<std::vector<double>>>> arrayA; // minibatch *(aRow*aCol*k)
+    std::vector<std::vector<std::vector<std::vector<double>>>> arrayB; // filterNum *(bRow*bCol*k)
 };
 
 

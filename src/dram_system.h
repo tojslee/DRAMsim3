@@ -41,8 +41,8 @@ class BaseDRAMSystem {
     uint64_t getAddr(int flag);
     virtual void ClockTick() = 0;
     int GetChannel(uint64_t hex_addr) const;
-    std::vector<std::vector<int>> getBuffer(std::pair<int, int> index);
-    void newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index);
+    std::vector<std::vector<double>> getBuffer(std::pair<int, int> index);
+    void newBuffer(std::vector<std::vector<double>> r, std::pair<int, int> index);
 
     std::function<void(uint64_t req_id)> read_callback_, write_callback_;
     static int total_channels_;
@@ -52,7 +52,7 @@ class BaseDRAMSystem {
     buffer buffer_c;
     void printBuff();
     void modifyInfo(int row, int array); // array, bcol
-    std::vector<std::vector<int>> getallBuffer();
+    std::vector<std::vector<double>> getallBuffer();
 
    protected:
     uint64_t id_;
@@ -61,7 +61,7 @@ class BaseDRAMSystem {
     Timing timing_;
     uint64_t parallel_cycles_;
     uint64_t serial_cycles_;
-    std::vector<std::vector<int>> resArray;
+    std::vector<std::vector<double>> resArray;
     int row_; // arrayA length
     int array_size_; // b col size
     int sys_row_; // systolic array size

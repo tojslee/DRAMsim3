@@ -10,17 +10,17 @@
 
 class pe {
 public:
-    void fixWeight(std::vector<std::vector<int>> v, pe* firstCol);
+    void fixWeight(std::vector<std::vector<double>> v, pe* firstCol);
     void matrixMultiple();
     void propagation(std::vector<pe *> c, int idx);
-    int aReg = 0;
-    int bReg;
-    int psumReg = 0;
+    double aReg = 0;
+    double bReg;
+    double psumReg = 0;
     bool isValue = false;
     pe *rightPE;
     pe *downPE;
-    std::pair<int, bool> upPE = std::make_pair(0, true);
-    std::pair<int, bool> leftPE = std::make_pair(0, true);
+    std::pair<double, bool> upPE = std::make_pair(0, true);
+    std::pair<double, bool> leftPE = std::make_pair(0, true);
 };
 
 

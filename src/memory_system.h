@@ -39,9 +39,9 @@ class MemorySystem {
     uint64_t getAddr(int flag);
     void printBuff();
     void modifyInfo(int row, int array);
-    std::vector<std::vector<int>> getBuffer(std::pair<int, int> index);
-    void newBuffer(std::vector<std::vector<int>> r, std::pair<int, int> index);
-    std::vector<std::vector<int>> getallBuffer();
+    std::vector<std::vector<double>> getBuffer(std::pair<int, int> index);
+    void newBuffer(std::vector<std::vector<double>> r, std::pair<int, int> index);
+    std::vector<std::vector<double>> getallBuffer();
 
    private:
     // These have to be pointers because Gem5 will try to push this object

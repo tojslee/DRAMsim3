@@ -119,13 +119,27 @@ int main(int argc, const char **argv) {
         std::string str;
         getline(dnnTrace, str);
         int layerNum = std::stoi(str);
+        for(int i=0;i<layerNum;i++){
+            layerInfo aLayer;
+            DNNLayers.push_back(aLayer);
+        }
         //printf("%d\n", layerNum);
         for(int i=0;i<layerNum;i++){ // get layer Info
             getline(dnnTrace, str);
+            int currentInfoLayer;
             // type, minibatch, aRow, aCol, k, filterNum, bRow, bCol, optimal
             size_t prev = 0;
             std::vector<std::string> parse;
             for(int j=0;j<str.size();j++){
+                if(isblank(str[j])){
+                    std::string identifier = str.substr(prev, j-prev);
+                    currentInfoLayer =
+                            stoi(identifier.substr(1, identifier.size()-1)) - 1;
+                    prev = j+1;
+                    break;
+                }
+            }
+            for(int j=prev;j<str.size();j++){
                 if(isblank(str[j])){
                     parse.push_back(str.substr(prev, j-prev));
                     prev = j+1;
@@ -133,40 +147,50 @@ int main(int argc, const char **argv) {
             }
             parse.push_back(str.substr(prev, str.size()-prev));
             if(parse[0].compare("Conv") == 0){
-                layerInfo oneLayer(parse[0], stoi(parse[1]), stoi(parse[2]), stoi(parse[3]), stoi(parse[4]), stoi(parse[5]), stoi(parse[6]), stoi(parse[7]), parse[8]);
-                DNNLayers.push_back(oneLayer);
+                DNNLayers[currentInfoLayer].setAll(parse[0], stoi(parse[1]), stoi(parse[2]), stoi(parse[3]), stoi(parse[4]), stoi(parse[5]), stoi(parse[6]), stoi(parse[7]), parse[8]);
             }
             else if(parse[0].compare("FC") == 0){
-                layerInfo oneLayer(parse[0], 1, 1, stoi(parse[1]), 1 , 1, stoi(parse[1]), stoi(parse[2]), parse[3]);
-                DNNLayers.push_back(oneLayer);
+                DNNLayers[currentInfoLayer].setAll(parse[0], 1, 1, stoi(parse[1]), 1 , 1, stoi(parse[1]), stoi(parse[2]), parse[3]);
             }
+            std::cout<<std::endl;
         }
+    }
+    dnnTrace.close();
+
+
+    std::ifstream dnnInputs, dnnFilters;
+    dnnInputs.open("/Users/jisoo/CLionProjects/revDRAMsim3/cifar.txt");
+    dnnFilters.open("/Users/jisoo/CLionProjects/revDRAMsim3/filter.txt");
+    std::string::size_type sz;
+
+    if(dnnInputs.is_open()){
         // get Input array & Filters
-        std::vector<std::vector<std::vector<std::vector<int>>>> oneArray;
+        std::vector<std::vector<std::vector<std::vector<double>>>> oneArray;
         for(int i=0;i<DNNLayers[0].getMinibatch();i++){
             // get input array
             // row : aRow & col : k * aCol
             // parse : integer vector containing jth row of each array
             // length -> k * aCol
             std::vector<std::int32_t> parse;
-            std::vector<std::vector<std::vector<int>>> arrVector;
+            std::vector<std::vector<std::vector<double>>> arrVector;
             for(int j=0;j<DNNLayers[0].getK();j++){
-                std::vector<std::vector<int>> temp;
+                std::vector<std::vector<double>> temp;
                 arrVector.push_back(temp);
             }
             for(int j=0;j<DNNLayers[0].getaRow();j++){
-                getline(dnnTrace,str);
+                std::string str;
+                getline(dnnInputs,str);
                 size_t prev = 0;
                 for(int l=0;l<str.size();l++){
                     if(isblank(str[l])){
-                        parse.push_back(stoi(str.substr(prev, l-prev)));
+                        parse.push_back(stod(str.substr(prev, l-prev), &sz));
                         prev = l+1;
                     }
                 }
-                parse.push_back(stoi(str.substr(prev, str.size()-prev)));
+                parse.push_back(stod(str.substr(prev, str.size()-prev), &sz));
 
                 for(int l=0;l<DNNLayers[0].getK();l++){
-                    std::vector<int> t;
+                    std::vector<double> t;
                     for(int s=0;s<DNNLayers[0].getaCol();s++){
                         t.push_back(parse[l*DNNLayers[0].getaCol()+s]);
                     }
@@ -177,50 +201,63 @@ int main(int argc, const char **argv) {
             oneArray.push_back(arrVector);
         }
         DNNLayers[0].setarrayA(oneArray);
-        printArr(oneArray);
+        //printArr(oneArray);
         oneArray.clear();
+    }
 
+    if(dnnFilters.is_open()){
         // get filter array for each layer
-        for(int i=0;i<layerNum;i++){
+        std::vector<std::vector<std::vector<std::vector<double>>>> oneArray;
+        for(int i=0;i<DNNLayers.size();i++){
             for(int j=0;j<DNNLayers[i].getFilterNum();j++){
-                // get filter array
-                // row : bRow & col : k * bCol
-                // parse : integer vector containing lth row of each filter
-                // length -> k * bCol
-                std::vector<std::int32_t> parse;
-                std::vector<std::vector<std::vector<int>>> arrVector;
-                for(int l=0;l<DNNLayers[i].getK();l++){
-                    std::vector<std::vector<int>> temp;
-                    arrVector.push_back(temp);
-                }
-                for(int l=0;l<DNNLayers[i].getbRow();l++){
-                    getline(dnnTrace, str);
-                    size_t prev = 0;
-                    for(int s=0;s<str.size();s++){
-                        if(isblank(str[s])){
-                            parse.push_back(stoi(str.substr(prev, s-prev)));
-                            prev = s+1;
+                std::vector<std::vector<std::vector<double>>> filters;
+                for(int k=0;k<DNNLayers[i].getK();k++){
+                    std::vector<std::vector<double>> aFilter;
+                    for(int l=0;l<DNNLayers[i].getbRow();l++){
+                        std::vector<double> aRow;
+                        std::string str;
+                        getline(dnnFilters, str);
+                        size_t prev = 0;
+                        for(int m=0;m<str.size();m++){
+                            if(isblank(str[m])){
+                                aRow.push_back(stod(str.substr(prev, m-prev), &sz));
+                                prev = m+1;
+                            }
                         }
+                        //aRow.push_back(stod(str.substr(prev, str.size()-prev), &sz));
+                        aFilter.push_back(aRow);
                     }
-                    parse.push_back(stoi(str.substr(prev, str.size()-prev)));
-
-                    for(int s=0;s<DNNLayers[i].getK();s++){
-                        std::vector<int> t;
-                        for(int d=0;d<DNNLayers[i].getbCol();d++){
-                            t.push_back(parse[s*DNNLayers[i].getbCol()+d]);
-                        }
-                        arrVector[s].push_back(t);
-                    }
-                    parse.clear();
+                    std::string st;
+                    getline(dnnFilters, st);
+                    filters.push_back(aFilter);
                 }
-                oneArray.push_back(arrVector);
+                oneArray.push_back(filters);
             }
             DNNLayers[i].setarrayB(oneArray);
-            printArr(oneArray);
+            /*if(i == 2){
+                for(auto iter = oneArray.begin();iter!=oneArray.end();iter++){
+                    auto a = *iter;
+                    for(auto b=a.begin();b!=a.end();b++){
+                        auto c=*iter;
+                        for(auto d=c.begin();d!=c.end();d++){
+                            auto e = *d;
+                            for(auto f=e.begin();f!=e.end();f++){
+                                auto g=*f;
+                                for(auto h=g.begin();h!=g.end();h++){
+                                    std::cout<<*h<<" ";
+                                }
+                                std::cout<<std::endl;
+                            }
+                            std::cout<<std::endl;
+                        }
+                        std::cout<<std::endl;
+                    }
+                    std::cout<<std::endl;
+                }
+            }*/
             oneArray.clear();
         }
     }
-    dnnTrace.close();
 
     int currentLayer = 0;
 

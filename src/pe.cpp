@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-void pe::fixWeight(std::vector<std::vector<int> > v, pe *firstCol) {
+void pe::fixWeight(std::vector<std::vector<double> > v, pe *firstCol) {
     if(v.size() == 0){return;}
     if(v[0].size() == 0){
         //std::cout<<std::endl;
