@@ -108,13 +108,20 @@ void StreamCPU::im2Col(){
         FCarrayB.push_back(temp);
     }
 
-    /*for(int i=0;i<FCarrayB.size();i++){
+    for(int i=0;i<FCarrayA.size();i++){
+        for(int j=0;j<FCarrayA[0].size();j++){
+            std::cout<<FCarrayA[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+    for(int i=0;i<FCarrayB.size();i++){
         for(int j=0;j<FCarrayB[0].size();j++){
             std::cout<<FCarrayB[i][j]<<" ";
         }
         std::cout<<std::endl;
     }
-    std::cout<<std::endl;*/
+    std::cout<<std::endl;
 
     fixA(FCarrayA);
     fixB(FCarrayB);
@@ -230,7 +237,7 @@ bool StreamCPU::ClockTick() {
     }
 
 
-    /*int idx = freeUnit();
+    int idx = freeUnit();
     if(!inserted_a_ &&
         !systolic_array.endGetInput(1)){
         if(memory_system_.WillAcceptTransaction(addr_a_ + offset_a_, false)){
@@ -250,7 +257,7 @@ bool StreamCPU::ClockTick() {
     if(readCallBacks.size() == array_length * array_height){
         systolic_array.addBuffer(1);
         readCallBacks.clear();
-    }*/
+    }
 
     //systolic_array.fullBuffer(1) &&
     if(!endprop){
@@ -263,6 +270,13 @@ bool StreamCPU::ClockTick() {
     if(endprop && !lastIdx()){
         std::vector<std::vector<double>> buffering = systolic_array.getR();
         memory_system_.newBuffer(buffering, index);
+        for(auto i = buffering.begin();i!=buffering.end();i++){
+            auto j = *i;
+            for(auto k=j.begin();k!=j.end();k++){
+                std::cout<<*k<<" ";
+            }
+            std::cout<<std::endl;
+        }
 
         if(index.second >= (bcol-1)/row_){
             index.first += 1;
@@ -276,6 +290,15 @@ bool StreamCPU::ClockTick() {
 
         std::vector<std::vector<double>> buffered = memory_system_.getBuffer(index);
         systolic_array.setR(buffered);
+
+        std::cout<<"/"<<std::endl;
+        for(auto i = buffered.begin();i!=buffered.end();i++){
+            auto j = *i;
+            for(auto k=j.begin();k!=j.end();k++){
+                std::cout<<*k<<" ";
+            }
+            std::cout<<std::endl;
+        }
 
         // fix new Weight of B
         std::vector<std::vector<double>> v;
@@ -313,10 +336,12 @@ bool StreamCPU::ClockTick() {
         }
     }
 
-    if(writeCallBacks.size() == array_length * bcol){writeCallBacks.clear();}
+    if(writeCallBacks.size() == array_length * bcol){
+        writeCallBacks.clear();
+    }
     //inserted_a_ && inserted_c_ && readCallBacks.empty() && writeCallBacks.empty()
     // moving on to next element
-    if (lastIdx() && writeStart_) {
+    if (lastIdx() && inserted_a_ && inserted_c_ && readCallBacks.empty() && writeCallBacks.empty() && writeStart_) {
         //offset_ += stride_;
         writeStart_ = false;
         inserted_a_ = false;
@@ -369,6 +394,9 @@ bool StreamCPU::ClockTick() {
                 for(auto m=l.begin();m!=l.end();m++){
                     auto n=*m;
                     for(auto o=n.begin();o!=n.end();o++){
+                        if(currentLayer != DNNLayers.size() - 1 && DNNLayers[currentLayer].getOptimal().compare("ReLU") == 0){
+                            if(*o < 0){*o = 0;}
+                        }
                         std::cout<<*o<<" ";
                     }
                     std::cout<<std::endl;

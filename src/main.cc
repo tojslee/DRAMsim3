@@ -171,7 +171,7 @@ int main(int argc, const char **argv) {
             // row : aRow & col : k * aCol
             // parse : integer vector containing jth row of each array
             // length -> k * aCol
-            std::vector<std::int32_t> parse;
+            std::vector<double> parse;
             std::vector<std::vector<std::vector<double>>> arrVector;
             for(int j=0;j<DNNLayers[0].getK();j++){
                 std::vector<std::vector<double>> temp;
@@ -187,7 +187,7 @@ int main(int argc, const char **argv) {
                         prev = l+1;
                     }
                 }
-                parse.push_back(stod(str.substr(prev, str.size()-prev), &sz));
+                //parse.push_back(stod(str.substr(prev, str.size()-prev), &sz));
 
                 for(int l=0;l<DNNLayers[0].getK();l++){
                     std::vector<double> t;

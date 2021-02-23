@@ -151,7 +151,7 @@ bool calculator::propagation(std::pair<int, int> index){ // propagate value to n
             // is real value
             if(resIdx[idx] < array_length){
                 if(arrayR[idx].size() == array_length){
-                    int tem = arrayR[idx][0];
+                    double tem = arrayR[idx][0];
                     arrayR[idx].erase(arrayR[idx].begin());
                     arrayR[idx].push_back(tem + iterator->psumReg);
                 }
@@ -197,7 +197,16 @@ bool calculator::propagation(std::pair<int, int> index){ // propagate value to n
             temp = temp->rightPE;
         }
     }
-    std::cout<<std::endl;
+
+    for(auto iter = arrayR.begin();iter != arrayR.end();iter++){
+        std::vector<double> eachline = *iter;
+        for(auto iter2 = eachline.begin(); iter2 != eachline.end();iter2++){
+            std::cout<< *iter2<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
+    //std::cout<<std::endl;
     // all calculated
     for(int i=0;i<col_usage;i++){
         if(resIdx[i] < array_length){
@@ -205,14 +214,6 @@ bool calculator::propagation(std::pair<int, int> index){ // propagate value to n
         }
     }
 
-    for(auto iter = arrayR.begin();iter != arrayR.end();iter++){
-        std::vector<double> eachline = *iter;
-        for(auto iter2 = eachline.begin(); iter2 != eachline.end();iter2++){
-            if(*iter2 < 0){*iter2 = 0;}
-            std::cout<< *iter2<<" ";
-        }
-        std::cout<<std::endl;
-    }
     outputBuffer.nums += array_length * col_usage;
     for(auto iter = firstColumn.begin();iter != firstColumn.end();iter++){
         auto it = *iter;
